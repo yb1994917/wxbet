@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>发起打赌</title>
+
+    <link rel="stylesheet" href="css/base.min.css">
+    <link rel="stylesheet" href="css/apply.css">
+</head>
+<body>
+<div class="page page-common page-apply">
+    <div class="content">
+        <div class="list-block">
+            <ul>
+                <li class="align-top">
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-input textarea-content">
+                                <div class="fontnum"><span class="nums">0</span>/20</div>
+                                <textarea id="apply-des" placeholder="我想要实现的目标" maxlength="20"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="content-block-title">打赌条件</div>
+        <div class="list-block">
+            <ul>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">打赌金额</div>
+                            <div class="item-input">
+                                <input type="text" class="text-right" placeholder="填写金额">
+                            </div>
+                            <div class="item-after">元</div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content item-link">
+                        <div class="item-inner">
+                            <div class="item-title label">完成时间</div>
+                            <div class="item-input datetime-content">
+                                <span class="showdate"></span>
+                                <input id="apply-datetime" type="text" class="text-right">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="content-block-title tip">完成时间后24小时未处理，默认未完成，打赌金额平分给参与者</div>
+        <p class="botton-content">
+            <a href="./applydetail.html" class="button button-fill button-success">塞钱打赌</a>
+        </p>
+        <p class="explain">
+            <span>玩法规则</span>
+        </p>
+    </div>
+</div>
+<script type="text/javascript" src="js/base.min.js"></script>
+<script type="text/javascript" src="js/apply.js"></script>
+</body>
+</html>
