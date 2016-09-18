@@ -7,17 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.lamfire.logger.Logger;
-import com.lamfire.logger.LoggerFactory;
+import com.msun.wxbet.cons.Definition;
+import com.msun.wxbet.support.FileHelper;
 import com.msun.wxbet.support.JsonResult;
 
 /**
  * @author zxc Aug 8, 2016 5:00:13 PM
  */
-public class BaseController {
+public class BaseController implements Definition {
 
-    static final Logger          _               = LoggerFactory.getLogger(BaseController.class);
-
+    @Autowired
+    protected FileHelper         fileHelper;
     @Autowired
     protected HttpServletRequest request;
 

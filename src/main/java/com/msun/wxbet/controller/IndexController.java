@@ -13,12 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lamfire.json.JSON;
 import com.lamfire.utils.DateFormatUtils;
+import com.lamfire.utils.StringUtils;
+import com.msun.wxbet.support.JsonResult;
 
 /**
  * @author zxc Aug 4, 2016 9:09:40 PM
@@ -29,6 +37,28 @@ public class IndexController extends BaseController {
     @RequestMapping(value = { "/", "/index" })
     public ModelAndView index() {
         return new ModelAndView("index");
+    }
+
+    // 图片
+    @RequestMapping(value = "/img", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> img(String img) {
+        try {
+            return ResponseEntity.ok()//
+            .contentType(MediaType.IMAGE_JPEG)//
+            .body(fileHelper.file(img));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // 上传文件
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult img(@RequestParam("imgfile") MultipartFile imgfile) {
+        String img = fileHelper.upload2save(imgfile);
+        if (StringUtils.isEmpty(img)) return fail("上传失败");
+        return ok("上传成功", img);
     }
 
     // 健康检查
