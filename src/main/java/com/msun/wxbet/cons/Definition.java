@@ -31,4 +31,6 @@ public interface Definition {
     public final static String  CUR_USER               = "cur_user";
 
     DateFormat                  f                      = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+    public static String        ORDER_NAME             = "[打赌咯]%s的目标,打赌%s元";
 }

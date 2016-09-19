@@ -74,12 +74,12 @@ public class WechatPayment {
      * @param totalMoney 总金额(单位:分)
      * @return prepay_id
      */
-    public String createWechatOrder(String productName, String orderId, int totalMoney, String remoteIp, String openId)
-                                                                                                                       throws ParserConfigurationException,
-                                                                                                                       TransformerException,
-                                                                                                                       IOException,
-                                                                                                                       WechatException,
-                                                                                                                       SAXException {
+    public String createWechatOrder(String productName, String orderId, long totalMoney, String remoteIp, String openId)
+                                                                                                                        throws ParserConfigurationException,
+                                                                                                                        TransformerException,
+                                                                                                                        IOException,
+                                                                                                                        WechatException,
+                                                                                                                        SAXException {
 
         String url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         String notifyUrl = baseUrl + "/wechatpaymentnotify";

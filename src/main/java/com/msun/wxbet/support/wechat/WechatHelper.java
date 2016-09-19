@@ -101,7 +101,6 @@ public class WechatHelper {
 
     public Map<String, String> initJsApiAttribute(String url) throws IOException, WechatException {
         Map<String, String> map = new HashMap<>();
-
         long timestamp = System.currentTimeMillis() / 1000;
         String noncestr = UUID.randomUUID().toString();
         String jsApiTicket = wechatJsApiTicket.getTicket();

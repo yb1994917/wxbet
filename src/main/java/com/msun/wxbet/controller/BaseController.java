@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.lamfire.json.JSON;
 import com.msun.wxbet.cons.Definition;
 import com.msun.wxbet.persistence.model.User;
 import com.msun.wxbet.persistence.service.BetService;
@@ -50,6 +51,14 @@ public class BaseController implements Definition {
 
     public JsonResult ok(String msg) {
         return JsonResult.successMsg(msg);
+    }
+
+    public JsonResult ok(String msg, Object[][] keyValues) {
+        JSON data = new JSON();
+        for (int i = 0; i < keyValues.length; i++) {
+            data.put((String) keyValues[i][0], keyValues[i][1]);
+        }
+        return JsonResult.success(data, msg);
     }
 
     public JsonResult ok(String msg, Object data) {

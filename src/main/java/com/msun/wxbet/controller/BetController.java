@@ -5,6 +5,8 @@ package com.msun.wxbet.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +19,7 @@ import com.msun.wxbet.persistence.model.Bet;
 import com.msun.wxbet.persistence.model.Participate;
 import com.msun.wxbet.persistence.model.Progress;
 import com.msun.wxbet.support.JsonResult;
+import com.msun.wxbet.support.wechat.WechatPayment;
 
 /**
  * @author zxc Sep 14, 2016 5:11:21 PM
@@ -25,6 +28,12 @@ import com.msun.wxbet.support.JsonResult;
 @RequestMapping(value = "/bet")
 public class BetController extends BaseController {
 
+    @Value("${debug}")
+    private boolean       debug;
+
+    @Autowired
+    private WechatPayment wechatPayment;
+
     // 创建打赌
     @RequestMapping(value = "/apply", method = RequestMethod.GET)
     public ModelAndView bet_create() {
@@ -32,13 +41,22 @@ public class BetController extends BaseController {
     }
 
     @RequestMapping(value = "/apply", method = RequestMethod.POST)
-    public ModelAndView bet_save(String content, String finishTime, Float amount) throws Exception {
+    @ResponseBody
+    public JsonResult bet_save(String content, String finishTime, Float amount) throws Exception {
         Bet bet = new Bet(userId());
         bet.setContent(content);
         bet.setAmount(amount);
-        bet.setFinishTime(DateUtils.parse(finishTime, ""));
+        bet.setFinishTime(DateUtils.parse(finishTime, "yyyy-MM-dd HH:mm"));
         betService.save(bet);
-        return new ModelAndView("bet/apply");
+        if (debug) {
+            return ok("成功", new Object[][] { { "id", bet.getId() } });
+        } else {
+            // 正式环境微信支付
+            String name = String.format(ORDER_NAME, userId(), amount);
+            String prepayId = wechatPayment.createWechatOrder(name, String.valueOf(bet.getId()), amount.longValue(),
+                                                              request.getRemoteAddr(), openid());
+            return ok("成功", wechatPayment.initPaymentAttribute(prepayId));
+        }
     }
 
     @RequestMapping(value = "/setting", method = RequestMethod.POST)

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.lamfire.json.JSON;
@@ -18,16 +20,18 @@ import com.msun.wxbet.cons.Definition;
 /**
  * @author zxc Sep 19, 2016 3:08:55 PM
  */
+@Component
 public class WechatAuthorizationInterceptor extends HandlerInterceptorAdapter implements Definition {
 
+    @Value("${appId}")
     private String appId;
+    @Value("${appSecret}")
     private String appSecret;
-
+    @Value("${baseUrl}")
     private String baseUrl;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
         String code = request.getParameter("code");
         String openId = (String) request.getSession(true).getAttribute(OPENID_SESSION_KEY);
 
@@ -45,6 +49,7 @@ public class WechatAuthorizationInterceptor extends HandlerInterceptorAdapter im
             String json = IOUtils.toString(new URL(checkCodeUrl), "UTF-8");
             JSON jsonObject = JSON.fromJSONString(json);
 
+            _.info("[wechat oauth2] " + jsonObject);
             if (jsonObject.containsKey("openid")) {
                 openId = jsonObject.getString("openid");
                 request.getSession(true).setAttribute(OPENID_SESSION_KEY, openId);
