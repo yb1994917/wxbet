@@ -12,15 +12,18 @@ import org.springframework.web.servlet.ModelAndView;
  * @author zxc Sep 14, 2016 5:11:47 PM
  */
 @Controller
+@RequestMapping(value = "/user")
 public class UserController extends BaseController {
 
-    @RequestMapping(value = "/usercenter", method = RequestMethod.GET)
+    // 个人中心
+    @RequestMapping(value = "/center", method = RequestMethod.GET)
     public ModelAndView list() {
         return new ModelAndView("user/center");
     }
 
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    // 访问鉴权
+    @RequestMapping(value = "/auth", method = RequestMethod.GET)
     public ModelAndView detail() {
-        return new ModelAndView("user/info");
+        return new ModelAndView("user/useridenf");
     }
 }

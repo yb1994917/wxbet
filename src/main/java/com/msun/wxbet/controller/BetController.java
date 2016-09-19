@@ -12,40 +12,48 @@ import org.springframework.web.servlet.ModelAndView;
  * @author zxc Sep 14, 2016 5:11:21 PM
  */
 @Controller
+@RequestMapping(value = "/bet")
 public class BetController extends BaseController {
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ModelAndView list() {
-        return new ModelAndView("bet/list");
-    }
-
+    // 创建打赌
     @RequestMapping(value = "/apply", method = RequestMethod.GET)
     public ModelAndView apply() {
         return new ModelAndView("bet/apply");
     }
 
+    // 打赌详情
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public ModelAndView detail() {
         return new ModelAndView("bet/applydetail");
     }
 
-    @RequestMapping(value = "/detailOther", method = RequestMethod.GET)
-    public ModelAndView detailOther() {
-        return new ModelAndView("bet/detailOther");
+    // 打赌记录
+    @RequestMapping(value = "/progress", method = RequestMethod.GET)
+    public ModelAndView progress() {
+        return new ModelAndView("bet/addRecord");
     }
 
-    @RequestMapping(value = "/applylist", method = RequestMethod.GET)
+    // 参与打赌
+    @RequestMapping(value = "/join", method = RequestMethod.GET)
+    public ModelAndView showdetail() {
+        return new ModelAndView("bet/showdetail");
+    }
+
+    // 打赌结果领取奖金
+    @RequestMapping(value = "/result", method = RequestMethod.GET)
+    public ModelAndView detailOther() {
+        return new ModelAndView("bet/betResult");
+    }
+
+    // 打赌列表
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView applylist() {
         return new ModelAndView("bet/applylist");
     }
 
-    @RequestMapping(value = "/applyrecord", method = RequestMethod.GET)
+    // 过往打赌列表
+    @RequestMapping(value = "/history", method = RequestMethod.GET)
     public ModelAndView applyrecord() {
-        return new ModelAndView("bet/applyrecord");
-    }
-
-    @RequestMapping(value = "/showdetail", method = RequestMethod.GET)
-    public ModelAndView showdetail() {
-        return new ModelAndView("bet/showdetail");
+        return new ModelAndView("bet/applyHistory");
     }
 }
