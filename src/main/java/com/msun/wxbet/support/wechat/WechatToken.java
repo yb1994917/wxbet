@@ -5,6 +5,7 @@ package com.msun.wxbet.support.wechat;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.lamfire.json.JSON;
@@ -15,7 +16,9 @@ import com.lamfire.json.JSON;
 @Service
 public class WechatToken {
 
+    @Value("${appId}")
     private String appId;
+    @Value("${appSecret}")
     private String appSecret;
 
     private String token;
@@ -35,8 +38,8 @@ public class WechatToken {
             String result = HttpUtil.get(url);
             JSON json = JSON.fromJSONString(result);
             if (json.containsKey("access_token")) {
-                String token = json.getString("access_token");
-                long invalidTime = now + json.getIntValue("expires_in") * 1000 - 60000;
+                token = json.getString("access_token");
+                invalidTime = now + json.getIntValue("expires_in") * 1000 - 60000;
             } else {
                 throw new WechatException("获取access_token失败: " + result);
             }

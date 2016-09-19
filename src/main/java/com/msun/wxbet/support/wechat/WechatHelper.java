@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.lamfire.json.JSON;
@@ -20,7 +21,9 @@ import com.lamfire.json.JSON;
 @Service
 public class WechatHelper {
 
+    @Value("${appId}")
     private String            appId;
+
     @Autowired
     private WechatToken       wechatToken;
     @Autowired

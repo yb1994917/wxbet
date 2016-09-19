@@ -22,6 +22,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -35,16 +36,14 @@ import org.xml.sax.SAXException;
 @Service
 public class WechatPayment {
 
-    private String  baseUrl;
-    private boolean debug;
-
-    private String  appId;
-    private String  appSecret;
-
-    private String  apiToken;
-    private String  wechatId;
-    private String  mchId;
-    private String  paymentApiKey;
+    @Value("${baseUrl}")
+    private String baseUrl;
+    @Value("${appId}")
+    private String appId;
+    @Value("${mchId}")
+    private String mchId;
+    @Value("${paymentApiKey}")
+    private String paymentApiKey;
 
     /**
      * 支付JS的参数生成
@@ -54,9 +53,7 @@ public class WechatPayment {
      * @throws IOException
      */
     public Map<String, String> initPaymentAttribute(String prepayId) throws IOException {
-
         Map<String, String> map = new HashMap<>();
-
         long timestamp = System.currentTimeMillis() / 1000;
         String noncestr = UUID.randomUUID().toString().replace("-", "");
 
@@ -68,7 +65,6 @@ public class WechatPayment {
 
         String sign = generateSign(map);
         map.put("paySign", sign);
-
         return map;
     }
 
@@ -191,7 +187,6 @@ public class WechatPayment {
      */
     private Document convertXml(String xml, boolean checkSign) throws ParserConfigurationException, IOException,
                                                               SAXException, WechatException {
-
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document document = db.parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
@@ -218,7 +213,6 @@ public class WechatPayment {
         if (checkSign && !generateSign(map).equals(sign)) {
             throw new WechatException("支付接口返回结果sign错误: " + xml);
         }
-
         return document;
     }
 
@@ -265,7 +259,6 @@ public class WechatPayment {
      * @return
      */
     private String generateSign(Map<String, String> map) {
-
         StringBuilder builder = new StringBuilder();
         TreeMap<String, String> treeMap = new TreeMap<>(map);
         for (Map.Entry<String, String> entry : treeMap.entrySet()) {
