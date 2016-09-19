@@ -3,6 +3,8 @@
  */
 package com.msun.wxbet.persistence.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -13,4 +15,7 @@ import com.msun.wxbet.persistence.model.Bet;
  */
 public interface BetDao extends PagingAndSortingRepository<Bet, Long>, JpaSpecificationExecutor<Bet> {
 
+    List<Bet> findByUserId(Long userId);
+
+    List<Bet> findByUserIdAndState(Long userId, int state);
 }

@@ -20,8 +20,18 @@ public class Progress extends IdEntity {
     private Date   createTime; // 创建时间
     private String content;   // 打赌过程记录
     private String pic;       // 过程记录图片
+
     private Long   betId;     // 打赌id
     private Long   userId;    // 组织者id
+
+    public Progress() {
+
+    }
+
+    public Progress(Long userId, Long betId) {
+        this.userId = userId;
+        this.betId = betId;
+    }
 
     public Date getCreateTime() {
         return createTime;

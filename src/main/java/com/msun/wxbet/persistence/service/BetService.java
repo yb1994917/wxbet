@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.lamfire.utils.Lists;
+import com.msun.wxbet.cons.BetState;
 import com.msun.wxbet.persistence.dao.BetDao;
 import com.msun.wxbet.persistence.dao.ProgressDao;
 import com.msun.wxbet.persistence.model.Bet;
@@ -33,6 +34,14 @@ public class BetService {
     public Bet bet(Long id) {
         if (id == null) return null;
         return betDao.findOne(id);
+    }
+
+    public List<Bet> listBet(Long userId) {
+        return betDao.findByUserId(userId);
+    }
+
+    public List<Bet> listBet(Long userId, BetState state) {
+        return betDao.findByUserIdAndState(userId, state.getValue());
     }
 
     public List<Bet> listBet() {
@@ -60,6 +69,10 @@ public class BetService {
 
     public List<Progress> listProgress() {
         return Lists.newArrayList(progressDao.findAll());
+    }
+
+    public List<Progress> listProgress(Long betId) {
+        return progressDao.findByBetId(betId);
     }
 
     public Page<Progress> listProgress(int page, int size) {

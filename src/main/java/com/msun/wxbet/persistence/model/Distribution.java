@@ -23,8 +23,18 @@ public class Distribution extends IdEntity {
     private String name;      // 用户名称,匿名显示匿名
     private Float  capital;   // 打赌活动总资金池,单位元
     private Float  income;    // 打赌收益金额,单位元
+
     private Long   userId;    // 组织者id
     private Long   betId;     // 打赌id
+
+    public Distribution() {
+
+    }
+
+    public Distribution(Long userId, Long betId) {
+        this.userId = userId;
+        this.betId = betId;
+    }
 
     public Date getCreateTime() {
         return createTime;

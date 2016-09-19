@@ -18,7 +18,8 @@ public class UserController extends BaseController {
     // 个人中心
     @RequestMapping(value = "/center", method = RequestMethod.GET)
     public ModelAndView list() {
-        return new ModelAndView("user/center");
+        return new ModelAndView("user/center")//
+        .addObject("user", user());
     }
 
     // 访问鉴权

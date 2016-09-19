@@ -4,10 +4,12 @@
 package com.msun.wxbet.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.msun.wxbet.cons.Definition;
+import com.msun.wxbet.persistence.model.User;
 import com.msun.wxbet.persistence.service.BetService;
 import com.msun.wxbet.persistence.service.ParticipateService;
 import com.msun.wxbet.persistence.service.UserService;
@@ -23,6 +25,8 @@ public class BaseController implements Definition {
     protected FileHelper         fileHelper;
     @Autowired
     protected HttpServletRequest request;
+    @Autowired
+    protected HttpSession        session;
 
     @Autowired
     protected UserService        userService;
@@ -30,6 +34,19 @@ public class BaseController implements Definition {
     protected BetService         betService;
     @Autowired
     protected ParticipateService participateService;
+
+    public String openid() {
+        return (String) session.getAttribute(OPENID_SESSION_KEY);
+    }
+
+    public User user() {
+        return userService.getUserByOpenId(openid());
+    }
+
+    public Long userId() {
+        User user = user();
+        return user == null ? null : user.getId();
+    }
 
     public JsonResult ok(String msg) {
         return JsonResult.successMsg(msg);

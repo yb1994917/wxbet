@@ -35,6 +35,10 @@ public class ParticipateService {
         return participateDao.findOne(id);
     }
 
+    public List<Participate> listParticipate(Long betId) {
+        return participateDao.findByBetId(betId);
+    }
+
     public List<Participate> listParticipate() {
         return Lists.newArrayList(participateDao.findAll());
     }

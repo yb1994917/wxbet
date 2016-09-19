@@ -21,8 +21,18 @@ public class Participate extends IdEntity {
     private String name;      // 用户名称,匿名显示匿名
     private String comment;   // 打赌内容
     private Float  amount;    // 打赌参与金额,单位元
+
     private Long   userId;    // 组织者id
     private Long   betId;     // 打赌id
+
+    public Participate() {
+
+    }
+
+    public Participate(Long userId, Long betId) {
+        this.userId = userId;
+        this.betId = betId;
+    }
 
     public Date getCreateTime() {
         return createTime;

@@ -27,7 +27,16 @@ public class Bet extends IdEntity {
     private int    participate; // 状态: 0=容许参与,1=停止参与
     private int    visible;    // 状态: 0=公开,1=私密
     private Float  capital;    // 打赌活动总资金池,单位元
+
     private Long   userId;     // 组织者id
+
+    public Bet() {
+
+    }
+
+    public Bet(Long userId) {
+        this.userId = userId;
+    }
 
     public Date getCreateTime() {
         return createTime;

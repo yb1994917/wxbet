@@ -3,6 +3,8 @@
  */
 package com.msun.wxbet.persistence.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -13,4 +15,7 @@ import com.msun.wxbet.persistence.model.Progress;
  */
 public interface ProgressDao extends PagingAndSortingRepository<Progress, Long>, JpaSpecificationExecutor<Progress> {
 
+    List<Progress> findByBetId(Long betId);
+
+    List<Progress> findByUserId(Long userId);
 }

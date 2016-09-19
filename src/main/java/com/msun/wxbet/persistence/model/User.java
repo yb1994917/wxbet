@@ -24,6 +24,14 @@ public class User extends IdEntity {
     private String  avatar;
     private Integer state;
 
+    public User() {
+
+    }
+
+    public User(String openid) {
+        this.openid = openid;
+    }
+
     public String getOpenid() {
         return openid;
     }
