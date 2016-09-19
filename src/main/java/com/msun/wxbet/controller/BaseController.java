@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.msun.wxbet.cons.Definition;
+import com.msun.wxbet.persistence.service.BetService;
+import com.msun.wxbet.persistence.service.ParticipateService;
+import com.msun.wxbet.persistence.service.UserService;
 import com.msun.wxbet.support.FileHelper;
 import com.msun.wxbet.support.JsonResult;
 
@@ -20,6 +23,13 @@ public class BaseController implements Definition {
     protected FileHelper         fileHelper;
     @Autowired
     protected HttpServletRequest request;
+
+    @Autowired
+    protected UserService        userService;
+    @Autowired
+    protected BetService         betService;
+    @Autowired
+    protected ParticipateService participateService;
 
     public JsonResult ok(String msg) {
         return JsonResult.successMsg(msg);

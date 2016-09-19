@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.msun.wxbet.cons.Definition;
-import com.msun.wxbet.persistence.UserService;
+import com.msun.wxbet.persistence.service.UserService;
 
 /**
  * @author zxc Sep 19, 2016 3:03:57 PM

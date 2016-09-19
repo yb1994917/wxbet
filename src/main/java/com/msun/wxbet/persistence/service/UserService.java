@@ -1,7 +1,7 @@
 /*
  * Copyright 2015-2020 uuzu.com All right reserved.
  */
-package com.msun.wxbet.persistence;
+package com.msun.wxbet.persistence.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

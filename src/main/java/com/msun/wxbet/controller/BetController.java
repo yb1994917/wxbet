@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.msun.wxbet.persistence.model.Bet;
+
 /**
  * @author zxc Sep 14, 2016 5:11:21 PM
  */
@@ -22,7 +24,7 @@ public class BetController extends BaseController {
     }
 
     @RequestMapping(value = "/apply", method = RequestMethod.POST)
-    public ModelAndView bet_save() {
+    public ModelAndView bet_save(Bet bet) {
         return new ModelAndView("bet/apply");
     }
 

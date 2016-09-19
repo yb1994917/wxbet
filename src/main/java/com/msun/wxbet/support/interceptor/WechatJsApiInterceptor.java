@@ -14,8 +14,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.msun.wxbet.cons.Definition;
-import com.msun.wxbet.persistence.UserService;
 import com.msun.wxbet.persistence.model.User;
+import com.msun.wxbet.persistence.service.UserService;
 import com.msun.wxbet.support.wechat.WechatHelper;
 
 /**
