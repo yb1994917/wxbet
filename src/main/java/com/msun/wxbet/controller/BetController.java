@@ -17,13 +17,18 @@ public class BetController extends BaseController {
 
     // 创建打赌
     @RequestMapping(value = "/apply", method = RequestMethod.GET)
-    public ModelAndView apply() {
+    public ModelAndView bet_create() {
+        return new ModelAndView("bet/apply");
+    }
+
+    @RequestMapping(value = "/apply", method = RequestMethod.POST)
+    public ModelAndView bet_save() {
         return new ModelAndView("bet/apply");
     }
 
     // 打赌详情
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public ModelAndView detail() {
+    public ModelAndView bet_detail() {
         return new ModelAndView("bet/applydetail");
     }
 

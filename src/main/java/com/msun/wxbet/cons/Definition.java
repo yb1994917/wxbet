@@ -21,6 +21,8 @@ public interface Definition {
 
     public final static String  NAV                    = "nav";
 
+    public static final String  OPENID_SESSION_KEY     = "OPENID_SESSION_KEY";
+
     public final static String  SESSION_REGISTER_CODE  = "SESSION_REGISTER_PHONE_CODE";
     public final static String  SESSION_RESET_PWD_CODE = "SESSION_RESET_PASSWORD_PHONE_CODE";
 

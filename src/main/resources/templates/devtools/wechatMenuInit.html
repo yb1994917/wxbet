@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>微信公众号菜单初始化</title>
+</head>
+<body>
+<form action="/wechatmenuinit/submit" method="post">
+    微信菜单JSON:
+    <br>
+    <textarea name="json" style="width: 500px; height: 300px;"><c:out value="${json}" /></textarea>
+    <br>
+    <button type="submit">提交</button>
+</form>
+</body>
+</html>

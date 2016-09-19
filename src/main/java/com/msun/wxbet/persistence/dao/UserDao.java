@@ -13,4 +13,5 @@ import com.msun.wxbet.persistence.model.User;
  */
 public interface UserDao extends PagingAndSortingRepository<User, Long>, JpaSpecificationExecutor<User> {
 
+    User findByOpenid(String openid);
 }
