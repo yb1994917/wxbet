@@ -3,11 +3,13 @@
  */
 package com.msun.wxbet.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,13 +49,14 @@ public class BetController extends BaseController {
         bet.setContent(content);
         bet.setAmount(amount);
         bet.setFinishTime(DateUtils.parse(finishTime, "yyyy-MM-dd HH:mm"));
+        bet.setCreateTime(new Date());
         betService.save(bet);
         if (debug) {
             return ok("成功", new Object[][] { { "id", bet.getId() } });
         } else {
             // 正式环境微信支付
-            String name = String.format(ORDER_NAME, userId(), amount);
-            String prepayId = wechatPayment.createWechatOrder(name, String.valueOf(bet.getId()), amount.longValue(),
+            String title = String.format(ORDER_NAME, userId(), amount);
+            String prepayId = wechatPayment.createWechatOrder(title, String.valueOf(bet.getId()), amount.longValue(),
                                                               request.getRemoteAddr(), openid());
             return ok("成功", wechatPayment.initPaymentAttribute(prepayId));
         }
@@ -64,13 +67,14 @@ public class BetController extends BaseController {
         Bet bet = betService.bet(betId);
         bet.setParticipate(participate);
         bet.setVisible(visible);
+        bet.setUpdateTime(new Date());
         betService.save(bet);
         return new ModelAndView("bet/apply");
     }
 
     // 打赌详情
-    @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public ModelAndView bet_detail(Long betId) {
+    @RequestMapping(value = "/detail/{betId}", method = RequestMethod.GET)
+    public ModelAndView bet_detail(@PathVariable Long betId) {
         Bet bet = betService.bet(betId);
         List<Progress> progresseList = betService.listProgress(betId);
         List<Participate> participateList = participateService.listParticipate(betId);
@@ -82,23 +86,26 @@ public class BetController extends BaseController {
 
     // 打赌记录
     @RequestMapping(value = "/progress", method = RequestMethod.GET)
-    public ModelAndView progress_create() {
-        return new ModelAndView("bet/addRecord");
+    public ModelAndView progress_create(Long betId) {
+        Bet bet = betService.bet(betId);
+        return new ModelAndView("bet/addRecord")//
+        .addObject("bet", bet);
     }
 
     @RequestMapping(value = "/progress", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResult progress_save(Long betId, String content, String pic) {
+    public JsonResult progress_save(Long betId, String content, String serverId) {
         Progress progress = new Progress(userId(), betId);
+        progress.setCreateTime(new Date());
         progress.setContent(content);
-        progress.setPic(pic);
+        progress.setPic(serverId);
         betService.save(progress);
         return ok("成功");
     }
 
     // 参与打赌
     @RequestMapping(value = "/join", method = RequestMethod.GET)
-    public ModelAndView showdetail(Long betId) {
+    public ModelAndView join(Long betId) {
         Bet bet = betService.bet(betId);
         List<Progress> progresseList = betService.listProgress(betId);
         List<Participate> participateList = participateService.listParticipate(betId);
@@ -106,6 +113,26 @@ public class BetController extends BaseController {
         .addObject("bet", bet)//
         .addObject("progresseList", progresseList)//
         .addObject("participateList", participateList);
+    }
+
+    @RequestMapping(value = "/join", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult dojoin(Long betId, Float amount, String name) throws Exception {
+        Participate participate = new Participate(userId(), betId);
+        participate.setAmount(amount);
+        participate.setCreateTime(new Date());
+        participate.setName(name);
+        participateService.save(participate);
+        if (debug) {
+            return ok("成功", new Object[][] { { "id", participate.getId() } });
+        } else {
+            // 正式环境微信支付
+            String title = String.format(ORDER_NAME, userId(), amount);
+            String prepayId = wechatPayment.createWechatOrder(title, String.valueOf(participate.getId()),
+                                                              amount.longValue(),
+                                                              request.getRemoteAddr(), openid());
+            return ok("成功", wechatPayment.initPaymentAttribute(prepayId));
+        }
     }
 
     // 打赌结果领取奖金
