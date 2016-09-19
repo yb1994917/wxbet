@@ -1,10 +1,9 @@
 /*
  * Copyright 2015-2020 uuzu.com All right reserved.
  */
-package com.msun.wxbet.controller.dev;
+package com.msun.wxbet.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lamfire.json.JSONArray;
-import com.lamfire.utils.Lists;
-import com.msun.wxbet.controller.BaseController;
 import com.msun.wxbet.support.wechat.WechatException;
 import com.msun.wxbet.support.wechat.WechatHelper;
 
@@ -55,13 +52,8 @@ public class WechatController extends BaseController {
     // 微信模拟登陆
     @RequestMapping(value = "/wechatsimulate", method = RequestMethod.GET)
     public ModelAndView simulate() {
-        List<Object> list = Lists.newLinkedList();
-        JSONArray array = JSONArray.fromJSONString(userSet);
-        for (Object json : array.asList()) {
-            list.add(json);
-        }
         return new ModelAndView("devtools/wechatSimulate")//
-        .addObject("list", list);
+        .addObject("list", JSONArray.fromJSONString(userSet).asList());
     }
 
     @ResponseBody
