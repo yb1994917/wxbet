@@ -12,7 +12,9 @@
 <form action="/wechatmenuinit/submit" method="post">
     微信菜单JSON:
     <br>
-    <textarea name="json" style="width: 500px; height: 300px;"><c:out value="${json}" /></textarea>
+    <br>
+    <textarea name="json" style="width: 500px; height: 300px;" th:inline="text">[[${json}]]</textarea>
+    <br>
     <br>
     <button type="submit">提交</button>
 </form>

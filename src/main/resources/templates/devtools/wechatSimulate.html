@@ -12,9 +12,7 @@
 <form action="/wechatsimulate/submit" method="post">
     选择登录微信openId:
     <select name="openId">
-        <c:forEach var="item" items="${list}">
-            <option value="<c:out value="${item.openid}" />"><c:out value="${item.nickname}" /> | <c:out value="${item.openid}" /></option>
-        </c:forEach>
+         <option th:each="item : ${list}" th:value="${item.openid}" th:inline="text">[[${item.name}]] | [[${item.openid}]]</option>
     </select>
     <button type="submit">模拟登入</button>
 </form>
