@@ -17,21 +17,12 @@ import javax.persistence.Table;
 @Table(name = "user")
 public class User extends IdEntity {
 
-    private Integer uid;
     private String  openid;
     private Date    createTime = new Date();
     private Date    updateTime = new Date();
     private String  nickname;
     private String  avatar;
     private Integer state;
-
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
 
     public String getOpenid() {
         return openid;
