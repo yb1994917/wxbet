@@ -16,13 +16,19 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
+INSERT INTO `user` (`id`,`openid`, `create_time`, `update_time`, `nickname`,`avatar`,`state`)
+VALUES(10001,'oGRmQsxIGGdoxeXrGcG_lgDZWV_E', '2016-06-26 18:11:46', '2016-06-26 18:11:46','hello','',1);
+INSERT INTO `user` (`id`,`openid`, `create_time`, `update_time`, `nickname`,`avatar`,`state`)
+VALUES(10001,'oGRmQs1dsisW6G1TVtm9dfged4io', '2016-09-11 18:11:46', '2016-09-11 18:11:46','test','',1);
+
 DROP TABLE IF EXISTS `bet`;
 CREATE TABLE `bet` (
   `id`          	bigint(20)    NOT NULL    AUTO_INCREMENT,
   `create_time` 	datetime      NOT NULL    COMMENT '数据记录创建时间',
-  `update_time` 	datetime      NOT NULL    COMMENT '数据记录更新时间',
+  `update_time` 	datetime                  COMMENT '数据记录更新时间',
   `content`         varchar(64)   NOT NULL    COMMENT '打赌内容,最多20汉字',
-  `finish_time` 	datetime      NOT NULL    COMMENT '完成时间',
+  `finish_time` 	datetime                  COMMENT '完成时间',
+  `real_time` 		datetime                  COMMENT '实际完成时间',
   `amount`          decimal(10,2) DEFAULT 0   COMMENT '打赌支付金额,单位元',
   `state`  			int(2)        DEFAULT 0   COMMENT '状态: -1=创建失败,0=创建成功,1=目标完成,2=目标失败,3=终止',
   `participate`  	int(2)        DEFAULT 0   COMMENT '状态: 0=容许参与,1=停止参与',

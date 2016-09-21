@@ -78,7 +78,7 @@ $(function () {
                  'data': jsonParam,
                  'success': function (data) {
                      if (data.status) {
-                         if(data.orderId) {
+                         if(data.data.id!=null) {
  							// 测试环境
  							location.href = "/bet/detail/" + data.data.id;
  						 } else {
