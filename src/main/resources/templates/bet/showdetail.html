@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +16,7 @@
 <body>
 <div class="page page-common page-applydetail">
     <div class="content">
-        <span class="dadu-tap"><img src="images/dd.png" alt=""></span>
+        <span class="dadu-tap"><img src="/images/dd.png" alt=""></span>
         <div class="detail-top">
             <div class="bgsvg">
                 <div class="user-headimg">
@@ -22,110 +24,45 @@
                          alt="">
                 </div>
             </div>
-            <p class="user-name">葫芦的目标</p>
+            <p class="user-name" th:inline="text">[[${bet.user.nickname}]]的目标</p>
             <div class="apply-title">
                 <span class="tip">
-                    <img src="images/comp@2x.png" alt="">
+                    <img src="/images/comp@2x.png" alt="">
                 </span>
-                <p class="apply-money"><img src="images/yin_r@2x.png" alt="">打赌¥20元</p>
-                <p class="apply-des">
-                    一周看完《三体》这本书
+                <p class="apply-money"><img src="/images/yin_r@2x.png" alt=""
+                th:inline="text">打赌¥[[${T(com.lamfire.utils.NumberUtils).format(bet.amount,2)}]]元</p>
+                <p class="apply-des" th:text="${bet.content}">
+                    	一周看完《三体》这本书
                 </p>
-                <p class="apply-time">
-                    完成时间：2016年07月30日 23:00前
-                    <img src="images/yin_l@2x.png" alt="">
+                <p class="apply-time" th:inline="text">
+                    	完成时间：[[${#calendars.format(bet.finishTime, 'yyyy年MM月dd日 HH:mm前')}]]
+                    <img src="/images/yin_l@2x.png" alt="">
                 </p>
             </div>
         </div>
         <div class="content-block-title">
             <span>谁给TA鼓励</span>
-            <span class="sub">（若未完成，则打赌按鼓励金占比分配）</span><span  class="open-explain"><img src="images/i@2x.png" alt=""></span></div>
+            <span class="sub">（若未完成，则打赌按鼓励金占比分配）</span><span  class="open-explain"><img src="/images/i@2x.png" alt=""></span></div>
         <div class="list-block none-margin-top none-margin-bottom list-friend">
             <ul>
-                <li class="item-content">
+                <li class="item-content" th:each="data,iterStat : ${participateList}">
                     <div class="item-inner">
                         <div class="item-title">
                             <div class="headerimg">
-                                <span class="user-img"><img
-                                        src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEIJh62qOdu905hwZBHkGl7ERCPgvMpSfy3IJGIPgpBPMuwFOmp65Hnr3ScMjnmLIzVB5eodyic195w/0"
-                                        alt=""></span>
+                                <span class="user-img">
+                                <img src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEIJh62qOdu905hwZBHkGl7ERCPgvMpSfy3IJGIPgpBPMuwFOmp65Hnr3ScMjnmLIzVB5eodyic195w/0"
+                                        alt="">
+                                </span>
                             </div>
                             <div class="user-info">
-                                <p>李泉</p>
+                                <p th:text="${data.name}">李泉</p>
                                 <div class="user-message">
-                                    <span class="message-content"></span><span class="message-open">留言</span><span class="user-time">今天 12:00</span>
+                                    <span class="message-content"></span><span class="message-open">留言</span>
+                                    <span class="user-time" th:text="${data.getCreateTimeDesc()}">今天 12:00</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="item-after user-money">¥1</div>
-                    </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-inner">
-                        <div class="item-title">
-                            <div class="headerimg">
-                                <span class="user-img"><img
-                                        src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEIJh62qOdu905hwZBHkGl7ERCPgvMpSfy3IJGIPgpBPMuwFOmp65Hnr3ScMjnmLIzVB5eodyic195w/0"
-                                        alt=""></span>
-                            </div>
-                            <div class="user-info">
-                                <p>李泉</p>
-                                <p class="user-message"><span>我不信！哈哈哈我不信！哈哈哈我不信！哈哈哈我不信！哈哈哈 </span><span
-                                        class="user-time">06-12 20:00</span></p>
-                            </div>
-                        </div>
-                        <div class="item-after user-money">¥1</div>
-                    </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-inner">
-                        <div class="item-title">
-                            <div class="headerimg">
-                                <span class="user-img"><img
-                                        src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEIJh62qOdu905hwZBHkGl7ERCPgvMpSfy3IJGIPgpBPMuwFOmp65Hnr3ScMjnmLIzVB5eodyic195w/0"
-                                        alt=""></span>
-                            </div>
-                            <div class="user-info">
-                                <p>李泉</p>
-                                <p class="user-message"><span>我不信！哈哈哈我不信！哈哈哈我不信！哈哈哈我不信！哈哈哈 </span><span
-                                        class="user-time">06-12 20:00</span></p>
-                            </div>
-                        </div>
-                        <div class="item-after user-money">¥1</div>
-                    </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-inner">
-                        <div class="item-title">
-                            <div class="headerimg">
-                                <span class="user-img"><img
-                                        src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEIJh62qOdu905hwZBHkGl7ERCPgvMpSfy3IJGIPgpBPMuwFOmp65Hnr3ScMjnmLIzVB5eodyic195w/0"
-                                        alt=""></span>
-                            </div>
-                            <div class="user-info">
-                                <p>李泉</p>
-                                <p class="user-message"><span>我不信！哈哈哈我不信！哈哈哈我不信！哈哈哈我不信！哈哈哈 </span><span
-                                        class="user-time">06-12 20:00</span></p>
-                            </div>
-                        </div>
-                        <div class="item-after user-money">¥1</div>
-                    </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-inner">
-                        <div class="item-title">
-                            <div class="headerimg">
-                                <span class="user-img"><img
-                                        src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEIJh62qOdu905hwZBHkGl7ERCPgvMpSfy3IJGIPgpBPMuwFOmp65Hnr3ScMjnmLIzVB5eodyic195w/0"
-                                        alt=""></span>
-                            </div>
-                            <div class="user-info">
-                                <p>李泉</p>
-                                <p class="user-message"><span>我不信！哈哈哈我不信！哈哈哈我不信！哈哈哈我不信！哈哈哈 </span><span
-                                        class="user-time">06-12 20:00</span></p>
-                            </div>
-                        </div>
-                        <div class="item-after user-money">¥1</div>
+                        <div class="item-after user-money" th:inline="text">¥[[${data.amount >0 ? T(com.lamfire.utils.NumberUtils).format(data.amount,2) : 0}]]</div>
                     </div>
                 </li>
                 <li class="item-content none-content">
@@ -155,7 +92,7 @@
                                 <span class="reduce-button">删除</span>
                             </p>
                             <p>终于看完了，谢谢大家终于看完了，谢谢大家终于看完了，谢谢大家</p>
-                            <p class="imgcontent"><img width="184" height="114" src="images/content-img.png" alt=""></p>
+                            <p class="imgcontent"><img width="184" height="114" src="/images/content-img.png" alt=""></p>
                         </div>
                     </div>
                 </li>
@@ -175,7 +112,7 @@
                                 <span class="reduce-button">删除</span>
                             </p>
                             <p>终于看完了，谢谢大家终于看完了，谢谢大家终于看完了，谢谢大家</p>
-                            <p class="imgcontent"><img width="184" height="114" src="images/content-img.png" alt=""></p>
+                            <p class="imgcontent"><img width="184" height="114" src="/images/content-img.png" alt=""></p>
                         </div>
                     </div>
                 </li>
@@ -195,7 +132,7 @@
                                 <span class="reduce-button">删除</span>
                             </p>
                             <p>终于看完了，谢谢大家终于看完了，谢谢大家终于看完了，谢谢大家</p>
-                            <p class="imgcontent"><img width="184" height="114" src="images/content-img.png" alt=""></p>
+                            <p class="imgcontent"><img width="184" height="114" src="/images/content-img.png" alt=""></p>
                         </div>
                     </div>
                 </li>
@@ -215,7 +152,7 @@
                                 <span class="reduce-button">删除</span>
                             </p>
                             <p>终于看完了，谢谢大家终于看完了，谢谢大家终于看完了，谢谢大家</p>
-                            <p class="imgcontent"><img width="184" height="114" src="images/content-img.png" alt=""></p>
+                            <p class="imgcontent"><img width="184" height="114" src="/images/content-img.png" alt=""></p>
                         </div>
                     </div>
                 </li>
@@ -235,7 +172,7 @@
                                 <span class="reduce-button">删除</span>
                             </p>
                             <p>终于看完了，谢谢大家终于看完了，谢谢大家终于看完了，谢谢大家</p>
-                            <p class="imgcontent"><img width="184" height="114" src="images/content-img.png" alt=""></p>
+                            <p class="imgcontent"><img width="184" height="114" src="/images/content-img.png" alt=""></p>
                         </div>
                     </div>
                 </li>
@@ -255,7 +192,7 @@
                                 <span class="reduce-button">删除</span>
                             </p>
                             <p>终于看完了，谢谢大家终于看完了，谢谢大家终于看完了，谢谢大家</p>
-                            <p class="imgcontent"><img width="184" height="114" src="images/content-img.png" alt=""></p>
+                            <p class="imgcontent"><img width="184" height="114" src="/images/content-img.png" alt=""></p>
                         </div>
                     </div>
                 </li>
@@ -275,7 +212,7 @@
                                 <span class="reduce-button">删除</span>
                             </p>
                             <p>终于看完了，谢谢大家终于看完了，谢谢大家终于看完了，谢谢大家</p>
-                            <p class="imgcontent"><img width="184" height="114" src="images/content-img.png" alt=""></p>
+                            <p class="imgcontent"><img width="184" height="114" src="/images/content-img.png" alt=""></p>
                         </div>
                     </div>
                 </li>
@@ -300,7 +237,7 @@
                                 <span class="reduce-button">删除</span>
                             </p>
                             <p>终于看完了，谢谢大家终于看完了，谢谢大家终于看完了，谢谢大家</p>
-                            <p class="imgcontent"><img width="184" height="114" src="images/content-img.png" alt=""></p>
+                            <p class="imgcontent"><img width="184" height="114" src="/images/content-img.png" alt=""></p>
                         </div>
                     </div>
                 </li>

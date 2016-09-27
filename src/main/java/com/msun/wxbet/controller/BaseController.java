@@ -16,6 +16,7 @@ import com.msun.wxbet.persistence.service.ParticipateService;
 import com.msun.wxbet.persistence.service.UserService;
 import com.msun.wxbet.support.FileHelper;
 import com.msun.wxbet.support.JsonResult;
+import com.msun.wxbet.support.wechat.WechatPayment;
 
 /**
  * @author zxc Aug 8, 2016 5:00:13 PM
@@ -35,6 +36,9 @@ public class BaseController implements Definition {
     protected BetService         betService;
     @Autowired
     protected ParticipateService participateService;
+
+    @Autowired
+    protected WechatPayment      wechatPayment;
 
     public String openid() {
         return (String) session.getAttribute(OPENID_SESSION_KEY);

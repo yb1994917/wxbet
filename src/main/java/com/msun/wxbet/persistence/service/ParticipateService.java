@@ -35,6 +35,18 @@ public class ParticipateService {
         return participateDao.findOne(id);
     }
 
+    public List<Participate> listParticipateByPartner(Long userId) {
+        return participateDao.findByUserId(userId);
+    }
+
+    public List<Participate> listParticipateByPublisher(Long userId) {
+        return participateDao.findByPartnerId(userId);
+    }
+
+    public long countParticipateByPublisher(Long userId) {
+        return participateDao.countByPartnerId(userId);
+    }
+
     public List<Participate> listParticipate(Long betId) {
         return participateDao.findByBetId(betId);
     }

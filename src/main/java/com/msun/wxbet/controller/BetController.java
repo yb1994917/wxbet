@@ -48,6 +48,7 @@ public class BetController extends BaseController {
         Bet bet = new Bet(userId());
         bet.setContent(content);
         bet.setAmount(amount);
+        bet.setState(BetState.FIAL.getValue());
         bet.setFinishTime(DateUtils.parse(finishTime, "yyyy-MM-dd HH:mm"));
         bet.setCreateTime(new Date());
         betService.save(bet);
@@ -76,6 +77,9 @@ public class BetController extends BaseController {
     @RequestMapping(value = "/detail/{betId}", method = RequestMethod.GET)
     public ModelAndView bet_detail(@PathVariable Long betId) {
         Bet bet = betService.bet(betId);
+        bet.setPv(bet.getPv() + 1);
+        betService.save(bet);
+
         List<Progress> progresseList = betService.listProgress(betId);
         List<Participate> participateList = participateService.listParticipate(betId);
         return new ModelAndView("bet/applydetail")//
@@ -85,8 +89,8 @@ public class BetController extends BaseController {
     }
 
     // 打赌记录
-    @RequestMapping(value = "/progress", method = RequestMethod.GET)
-    public ModelAndView progress_create(Long betId) {
+    @RequestMapping(value = "/progress/{betId}", method = RequestMethod.GET)
+    public ModelAndView progress_create(@PathVariable Long betId) {
         Bet bet = betService.bet(betId);
         return new ModelAndView("bet/addRecord")//
         .addObject("bet", bet);
@@ -118,7 +122,10 @@ public class BetController extends BaseController {
     @RequestMapping(value = "/join", method = RequestMethod.POST)
     @ResponseBody
     public JsonResult dojoin(Long betId, Float amount, String name) throws Exception {
-        Participate participate = new Participate(userId(), betId);
+        Bet bet = betService.bet(betId);
+        if (bet == null) return fail("打赌不存在");
+
+        Participate participate = new Participate(bet.getUserId(), userId(), betId);
         participate.setAmount(amount);
         participate.setCreateTime(new Date());
         participate.setName(name);
@@ -129,31 +136,51 @@ public class BetController extends BaseController {
             // 正式环境微信支付
             String title = String.format(ORDER_NAME, userId(), amount);
             String prepayId = wechatPayment.createWechatOrder(title, String.valueOf(participate.getId()),
-                                                              amount.longValue(),
-                                                              request.getRemoteAddr(), openid());
+                                                              amount.longValue(), request.getRemoteAddr(), openid());
             return ok("成功", wechatPayment.initPaymentAttribute(prepayId));
         }
     }
 
+    // 仲裁,判定打赌结果
+    @RequestMapping(value = "/arbitration", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult arbitration(Long betId, int state) throws Exception {
+        Bet bet = betService.bet(betId);
+        if (bet == null) return fail("打赌不存在");
+
+        bet.setState(state);
+        bet.setRealTime(new Date());
+        betService.save(bet);
+        return ok("操作成功");
+    }
+
     // 打赌结果领取奖金
-    @RequestMapping(value = "/result", method = RequestMethod.GET)
-    public ModelAndView detailOther() {
-        return new ModelAndView("bet/betResult");
+    @RequestMapping(value = "/result/{betId}", method = RequestMethod.GET)
+    public ModelAndView detailOther(@PathVariable Long betId) {
+        Bet bet = betService.bet(betId);
+        List<Progress> progresseList = betService.listProgress(betId);
+        List<Participate> participateList = participateService.listParticipate(betId);
+        return new ModelAndView("bet/betResult")//
+        .addObject("bet", bet)//
+        .addObject("progresseList", progresseList)//
+        .addObject("participateList", participateList);
     }
 
     // 打赌列表
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView applylist() {
+        // 我的打赌
         List<Bet> betList = betService.listBet(userId(), BetState.SUCCESS);
+        List<Bet> betHistoryList = betService.listBet(userId(), BetState.FINISH, BetState.UN_FINISH, BetState.CANCEL);
+        long betCount = betService.countBet(userId(), BetState.SUCCESS);
+        // 我的鼓励
+        List<Participate> participateList = participateService.listParticipateByPublisher(userId());
+        long partiCount = participateService.countParticipateByPublisher(userId());
         return new ModelAndView("bet/applylist")//
-        .addObject("betList", betList);
-    }
-
-    // 过往打赌列表
-    @RequestMapping(value = "/history", method = RequestMethod.GET)
-    public ModelAndView applyrecord() {
-        List<Bet> betList = betService.listBet(userId());
-        return new ModelAndView("bet/applyHistory")//
-        .addObject("betList", betList);
+        .addObject("betCount", betCount)//
+        .addObject("betList", betList)//
+        .addObject("betHistoryList", betHistoryList)//
+        .addObject("partiCount", partiCount)//
+        .addObject("participateList", participateList);
     }
 }

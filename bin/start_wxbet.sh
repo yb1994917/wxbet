@@ -29,7 +29,6 @@ do
 done
 
 PATH=${JAVA_HOME}/bin:${PATH}
-echo $PATH
 export PATH
 
 java=$JAVA_HOME/bin/java

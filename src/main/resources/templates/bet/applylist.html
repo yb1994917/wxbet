@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,30 +17,22 @@
 <div class="page page-common page-applylist">
     <div class="content">
         <div class="content-block">
-            <a href="./apply.html" class="apply-button"><i class="fa fa-plus"></i></a>
+            <a th:href="@{'/bet/apply'}" href="./apply.html" class="apply-button"><i class="fa fa-plus"></i></a>
             <div class="buttons-row">
-                <a href="#myapply" class="tab-link active button">我的打赌 <span>1</span></a>
-                <a href="#mycommon" class="tab-link button">我的鼓励 <span>3</span></a>
+                <a href="#myapply" class="tab-link active button">我的打赌 <span th:text="${betCount}">1</span></a>
+                <a href="#mycommon" class="tab-link button">我的鼓励 <span th:text="${partiCount}">3</span></a>
             </div>
         </div>
         <div class="tabs">
             <div id="myapply" class="tab active">
                 <div class="list-block">
                     <ul>
-                        <li>
-                            <a href="./applydetail.html" class="item-content item-link">
-                                <span class="tip">剩余1天</span>
+                        <li th:each="data,iterStat : ${betList}">
+                            <a th:href="@{'/bet/detail/'+${data.id}}" href="./applydetail.html" class="item-content item-link">
+                                <span class="tip" th:inline="text">剩余[[${data.getFinishTimeDesc()}]]天</span>
                                 <div class="item-inner">
-                                    <div class="item-title">晚上12点前睡觉晚上12点前睡觉晚上12点前睡觉晚上12点前睡觉晚上12点前睡觉晚上12点前睡觉</div>
-                                    <div class="item-after">¥10</div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./applydetail.html" class="item-content item-link">
-                                <div class="item-inner">
-                                    <div class="item-title">给我买瓶啤酒</div>
-                                    <div class="item-after">¥20</div>
+                                    <div class="item-title" th:text="${data.content}">晚上12点前睡觉</div>
+                                    <div class="item-after" th:inline="text">¥[[${T(com.lamfire.utils.NumberUtils).format(data.amount,2)}]]元</div>
                                 </div>
                             </a>
                         </li>
@@ -79,7 +73,6 @@
                 </div>
             </div>
         </div>
-        <p class="bottom"><a href="./applyrecord.html">过往打赌</a></p>
     </div>
 </div>
 <script type="text/javascript" src="/js/base.min.js"></script>

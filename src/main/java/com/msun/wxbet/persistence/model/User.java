@@ -23,6 +23,7 @@ public class User extends IdEntity {
     private String  nickname;
     private String  avatar;
     private Integer state;
+    private Long    income;                 // 已赚取,累计收入
 
     public User() {
 
@@ -30,6 +31,14 @@ public class User extends IdEntity {
 
     public User(String openid) {
         this.openid = openid;
+    }
+
+    public Long getIncome() {
+        return income;
+    }
+
+    public void setIncome(Long income) {
+        this.income = income;
     }
 
     public String getOpenid() {

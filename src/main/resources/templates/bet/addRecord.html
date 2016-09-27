@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,6 +27,7 @@
                     </div>
                     <input id="file-upload" type="file" accept="image/*" style="display:none;"/>
                 </div>
+                
             </div>
         </div>
         <div class="button-submit">
@@ -44,7 +46,7 @@
 		timestamp: [[${jsApiTimestamp}]],
 		nonceStr: [[${jsApiNonceStr}]],
 		signature: [[${jsApiSignature}]],
-		jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage", "chooseImage", "chooseWXPay", "uploadImage", "closeWindow"]
+		jsApiList: ["chooseImage", "chooseWXPay", "uploadImage", "closeWindow"]
 	});
 /*]]>*/
 </script>

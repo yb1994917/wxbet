@@ -70,6 +70,7 @@ public class WechatAuthorizationInterceptor extends HandlerInterceptorAdapter im
             url += "&redirect_uri=";
             url += URLEncoder.encode(backUrl, "UTF-8");
             url += "&response_type=code&scope=snsapi_base#wechat_redirect";
+            _.info("[wechat get openId] " + url);
             response.sendRedirect(url);
             return false;
         } else {

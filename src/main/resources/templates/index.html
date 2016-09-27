@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,13 +36,6 @@
                         <a th:href="@{/bet/list}" href="./applylist.html" class="item-link item-content">
                             <div class="item-inner">
                                 <div class="item-title">正在打赌列表（applylist.html）</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/bet/history}" href="./applyrecord.html" class="item-link item-content">
-                            <div class="item-inner">
-                                <div class="item-title">过往打赌列表（applyrecord.html）</div>
                             </div>
                         </a>
                     </li>

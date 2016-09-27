@@ -40,8 +40,30 @@ public class BetService {
         return betDao.findByUserId(userId);
     }
 
-    public List<Bet> listBet(Long userId, BetState state) {
-        return betDao.findByUserIdAndState(userId, state.getValue());
+    public List<Bet> listBet(Long userId, BetState... states) {
+        if (states == null || states.length <= 0) return Lists.newArrayList();
+        if (states.length == 1) {
+            return betDao.findByUserIdAndState(userId, states[0].getValue());
+        } else {
+            List<Integer> list = Lists.newArrayList();
+            for (BetState betState : states) {
+                list.add(betState.getValue());
+            }
+            return betDao.findByUserIdInState(userId, list);
+        }
+    }
+
+    public long countBet(Long userId, BetState... states) {
+        if (states == null || states.length <= 0) return 0;
+        if (states.length == 1) {
+            return betDao.countByUserIdAndState(userId, states[0].getValue());
+        } else {
+            List<Integer> list = Lists.newArrayList();
+            for (BetState betState : states) {
+                list.add(betState.getValue());
+            }
+            return betDao.countByUserIdInState(userId, list);
+        }
     }
 
     public List<Bet> listBet() {

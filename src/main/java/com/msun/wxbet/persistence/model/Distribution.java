@@ -5,8 +5,10 @@ package com.msun.wxbet.persistence.model;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 /**
  * 资金分配
@@ -24,8 +26,10 @@ public class Distribution extends IdEntity {
     private Float  capital;   // 打赌活动总资金池,单位元
     private Float  income;    // 打赌收益金额,单位元
 
-    private Long   userId;    // 组织者id
+    private Long   userId;    // 用户id
+    private User   user;      // 组织者
     private Long   betId;     // 打赌id
+    private Bet    bet;       // 打赌
 
     public Distribution() {
 
@@ -34,6 +38,28 @@ public class Distribution extends IdEntity {
     public Distribution(Long userId, Long betId) {
         this.userId = userId;
         this.betId = betId;
+    }
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "betId", insertable = false, updatable = false)
+    @NotFound(action = NotFoundAction.IGNORE)
+    public Bet getBet() {
+        return bet;
+    }
+
+    public void setBet(Bet bet) {
+        this.bet = bet;
+    }
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", insertable = false, updatable = false)
+    @NotFound(action = NotFoundAction.IGNORE)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getCreateTime() {

@@ -27,8 +27,9 @@ $(function () {
 		  });
 	    }
         
-        page.on('tap','.uploader-button', function (e) {
-        	chooseImg();
+        page.on('tap','.uploader-content', function (e) {
+        	//chooseImg();
+        	alert("click new");
         });
 
         page.on('tap','.img-content', function () {
@@ -44,7 +45,16 @@ $(function () {
                 {
                     text: '重新上传',
                     onClick: function() {
-                    	chooseImg();
+                    	//chooseImg();
+                    	alert("click new");
+                    	
+                    	var imgFile = $('#file-upload').files[0];
+                        var reader = new FileReader();
+                        reader.readAsDataURL(imgFile);
+                        reader.onload = function (e) {
+                            $('.uploader-button').append('<span class="img-content"><img src="' + this.result + '" alt="" style="width:100%;height:100%;" /></span>');
+                            $('#file-upload').val('');
+                        }
                     }
                 }
             ];

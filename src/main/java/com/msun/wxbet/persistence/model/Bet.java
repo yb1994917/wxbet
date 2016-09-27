@@ -5,8 +5,12 @@ package com.msun.wxbet.persistence.model;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
+import com.msun.wxbet.support.utils.MUSNUtils;
 
 /**
  * 打赌
@@ -27,11 +31,24 @@ public class Bet extends IdEntity {
     private int    participate; // 状态: 0=容许参与,1=停止参与
     private int    visible;    // 状态: 0=公开,1=私密
     private Float  capital;    // 打赌活动总资金池,单位元
+    private long   pv;         // 浏览数
 
     private Long   userId;     // 组织者id
+    private User   user;       // 组织者
 
     public Bet() {
 
+    }
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", insertable = false, updatable = false)
+    @NotFound(action = NotFoundAction.IGNORE)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Bet(Long userId) {
@@ -62,8 +79,22 @@ public class Bet extends IdEntity {
         this.content = content;
     }
 
+    @Transient
+    public int getFinishTimeDesc() {
+        if (finishTime == null) return 0;
+        return MUSNUtils.subtractDays(finishTime.getTime(), System.currentTimeMillis());
+    }
+
     public Date getFinishTime() {
         return finishTime;
+    }
+
+    public long getPv() {
+        return pv;
+    }
+
+    public void setPv(long pv) {
+        this.pv = pv;
     }
 
     public void setFinishTime(Date finishTime) {

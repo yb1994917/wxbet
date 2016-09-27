@@ -5,8 +5,10 @@ package com.msun.wxbet.persistence.model;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 /**
  * 进度
@@ -21,8 +23,10 @@ public class Progress extends IdEntity {
     private String content;   // 打赌过程记录
     private String pic;       // 过程记录图片
 
-    private Long   betId;     // 打赌id
     private Long   userId;    // 组织者id
+    private User   user;      // 组织者
+    private Long   betId;     // 打赌id
+    private Bet    bet;       // 打赌
 
     public Progress() {
 
@@ -33,6 +37,27 @@ public class Progress extends IdEntity {
         this.betId = betId;
     }
 
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "betId", insertable = false, updatable = false)
+    @NotFound(action = NotFoundAction.IGNORE)
+    public Bet getBet() {
+        return bet;
+    }
+
+    public void setBet(Bet bet) {
+        this.bet = bet;
+    }
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", insertable = false, updatable = false)
+    @NotFound(action = NotFoundAction.IGNORE)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     public Date getCreateTime() {
         return createTime;
     }

@@ -17,7 +17,21 @@ public interface ParticipateDao extends PagingAndSortingRepository<Participate, 
 
     List<Participate> findByBetId(Long betId);
 
+    // 组织者
     List<Participate> findByUserId(Long userId);
 
+    long countByUserId(Long userId);
+
+    // 参与者
+    List<Participate> findByPartnerId(Long userId);
+
+    long countByPartnerId(Long userId);
+
     List<Participate> findByUserIdAndBetId(Long userId, Long betId);
+
+    List<Participate> findByPartnerIdAndBetId(Long userId, Long betId);
+
+    long countByUserIdAndBetId(Long userId, Long betId);
+
+    long countByPartnerIdAndBetId(Long userId, Long betId);
 }
