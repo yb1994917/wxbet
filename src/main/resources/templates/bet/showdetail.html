@@ -8,7 +8,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title th:inline="text">[[${bet.user.nickname}]]的目标</title>
+    <title th:inline="text">打赌¥[[${T(com.lamfire.utils.NumberUtils).format(bet.amount,2)}]]元-[[${bet.user.nickname}]]的目标</title>
 
     <link rel="stylesheet" href="/css/base.min.css">
     <link rel="stylesheet" href="/css/applydetail.css">
