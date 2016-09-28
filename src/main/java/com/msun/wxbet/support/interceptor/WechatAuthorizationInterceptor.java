@@ -120,7 +120,7 @@ public class WechatAuthorizationInterceptor extends HandlerInterceptorAdapter im
         String openid = json.getString("openid");
         String nickname = json.getString("nickname");
         String headimgurl = json.getString("headimgurl");
-        User user = userService.getUserByOpenId(openid);
+        User user = userService.getUserByOpenIdIfExist(openid);
         if (user == null) user = new User(openid);
         user.setNickname(nickname);
         user.setAvatar(headimgurl);
