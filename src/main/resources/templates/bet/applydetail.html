@@ -8,7 +8,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>发起详情页</title>
+    <title>[[${bet.user.nickname}]]的目标</title>
 
     <link rel="stylesheet" href="/css/base.min.css">
     <link rel="stylesheet" href="/css/applydetail.css">
@@ -20,8 +20,7 @@
         <div class="detail-top">
             <div class="bgsvg">
                 <div class="user-headimg">
-                    <img src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEIJh62qOdu905hwZBHkGl7ERCPgvMpSfy3IJGIPgpBPMuwFOmp65Hnr3ScMjnmLIzVB5eodyic195w/0"
-                         alt="">
+                    <img th:src="${bet.user.avatar}" alt="">
                 </div>
             </div>
             <p class="user-name" th:inline="text">[[${bet.user.nickname}]]的目标</p>
@@ -54,8 +53,7 @@
                         <div class="item-title">
                             <div class="headerimg">
                                 <span class="user-img">
-                                <img src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEIJh62qOdu905hwZBHkGl7ERCPgvMpSfy3IJGIPgpBPMuwFOmp65Hnr3ScMjnmLIzVB5eodyic195w/0"
-                                        alt="">
+                                <img src="" alt="">
                                 </span>
                             </div>
                             <div class="user-info">
@@ -85,8 +83,7 @@
 	                    <div class="col-20">
 	                        <div class="headerimg">
                             <span class="user-img">
-                            <img src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEIJh62qOdu905hwZBHkGl7ERCPgvMpSfy3IJGIPgpBPMuwFOmp65Hnr3ScMjnmLIzVB5eodyic195w/0"
-                            alt=""></span>
+                            <img th:src="${data.user.avatar}" alt=""></span>
 	                        </div>
 	                    </div>
 	                    <div class="col-80 record-main">

@@ -20,8 +20,7 @@
         <div class="detail-top">
             <div class="bgsvg">
                 <div class="user-headimg">
-                    <img src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEIJh62qOdu905hwZBHkGl7ERCPgvMpSfy3IJGIPgpBPMuwFOmp65Hnr3ScMjnmLIzVB5eodyic195w/0"
-                         alt="">
+                    <img th:src="${bet.user.avatar}" alt="">
                 </div>
             </div>
             <p class="user-name" th:inline="text">[[${bet.user.nickname}]]的目标</p>
@@ -53,8 +52,7 @@
                         <div class="item-title">
                             <div class="headerimg">
                                 <span class="user-img">
-                                <img src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEIJh62qOdu905hwZBHkGl7ERCPgvMpSfy3IJGIPgpBPMuwFOmp65Hnr3ScMjnmLIzVB5eodyic195w/0"
-                                        alt="">
+                                <img th:src="${data.user.avatar}"  alt="">
                                 </span>
                             </div>
                             <div class="user-info">
