@@ -8,10 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 
 import com.lamfire.json.JSON;
 
@@ -28,6 +31,31 @@ public class WechatHelper {
     private WechatToken       wechatToken;
     @Autowired
     private WechatJsApiTicket wechatJsApiTicket;
+
+    /**
+     * 处理微信消息请求
+     * 
+     * @param requestBody 消息请求Body，XML格式
+     * @return 响应Body，XML格式
+     */
+    public String process(String requestBody) throws ParserConfigurationException, IOException, SAXException {
+        String responseBody = "";
+        // DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        // DocumentBuilder db = dbf.newDocumentBuilder();
+        // Document document = db.parse(new ByteArrayInputStream(requestBody.getBytes("UTF-8")));
+        //
+        // Element rootElement = document.getDocumentElement();
+        // String msgType = rootElement.getElementsByTagName("MsgType").item(0).getTextContent();
+        // if("event".endsWith(msgType)) {
+        // String event = rootElement.getElementsByTagName("Event").item(0).getTextContent();
+        // String eventKey = rootElement.getElementsByTagName("EventKey").item(0).getTextContent();
+        // if(event.equals("CLICK") && eventKey.equals("point")) {
+        // String openId = rootElement.getElementsByTagName("FromUserName").item(0).getTextContent();
+        // responseBody = getPointAndSpreadLink(openId);
+        // }
+        // }
+        return responseBody;
+    }
 
     /**
      * 获取微信菜单
