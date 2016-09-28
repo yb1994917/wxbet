@@ -41,8 +41,8 @@ $(function () {
    		    var ispost=false;
 	   		$.each($(this)[0].files, function(i, file) {
 	   			var size=file.size/1024;
-	   			if(size > 1024){
-	   				alert('文件超过1M');
+	   			if(size > 1024*10){
+	   				alert('文件超过10M');
    					return;
 	   			}
 	   			formData.append('imgfile', file);
