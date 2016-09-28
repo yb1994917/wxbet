@@ -10,7 +10,7 @@ CREATE TABLE `user` (
   `create_time` 	datetime      NOT NULL    COMMENT '数据记录创建时间',
   `update_time` 	datetime      NOT NULL    COMMENT '数据记录更新时间',
   `nickname`        varchar(64)   NOT NULL    COMMENT '用户名称',
-  `avatar`          varchar(64)   NOT NULL    COMMENT '用户图像',
+  `avatar`          varchar(64)   DEFAULT '/images/noimages.png' COMMENT '用户图像',
   `state`  			int(2)        DEFAULT 1   COMMENT '状态: 0=未审核,1=正常,2=停止',
   `income`  	    int(11)       DEFAULT 0   COMMENT '已赚取,累计收入',
   
@@ -18,9 +18,9 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 INSERT INTO `user` (`id`,`openid`, `create_time`, `update_time`, `nickname`,`avatar`,`state`,`income`)
-VALUES(10001,'oGRmQsxIGGdoxeXrGcG_lgDZWV_E', '2016-06-26 18:11:46', '2016-06-26 18:11:46','hello','',1,0);
+VALUES(10001,'oGRmQsxIGGdoxeXrGcG_lgDZWV_E', '2016-06-26 18:11:46', '2016-06-26 18:11:46','hello','/images/noimages.png',1,0);
 INSERT INTO `user` (`id`,`openid`, `create_time`, `update_time`, `nickname`,`avatar`,`state`,`income`)
-VALUES(10002,'oGRmQs1dsisW6G1TVtm9dfged4io', '2016-09-11 18:11:46', '2016-09-11 18:11:46','test','',1,0);
+VALUES(10002,'oGRmQs1dsisW6G1TVtm9dfged4io', '2016-09-11 18:11:46', '2016-09-11 18:11:46','test','/images/noimages.png',1,0);
 
 DROP TABLE IF EXISTS `bet`;
 CREATE TABLE `bet` (
@@ -41,7 +41,7 @@ CREATE TABLE `bet` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20000 DEFAULT CHARSET=utf8 COMMENT='打赌表';
 
-alter table `bet` add column `pv` int(11) DEFAULT 0 COMMENT '浏览数' after `capital`;
+--alter table `bet` add column `pv` int(11) DEFAULT 0 COMMENT '浏览数' after `capital`;
 
 DROP TABLE IF EXISTS `progress`;
 CREATE TABLE `progress` (
@@ -50,8 +50,8 @@ CREATE TABLE `progress` (
   `content`         varchar(64)   NOT NULL    COMMENT '打赌过程记录内容',
   `pic`             varchar(64)   NOT NULL    COMMENT '打赌过程记录图片',
   
-  `bet_id`          bigint(20)    NOT NULL    COMMENT 'betID',
-  `user_id`         bigint(20)    NOT NULL    COMMENT 'userID',
+  `bet_id`          bigint(20)    NOT NULL    COMMENT '打赌betID',
+  `user_id`         bigint(20)    NOT NULL    COMMENT '组织者userID',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30000 DEFAULT CHARSET=utf8 COMMENT='打赌过程记录表';
 
@@ -63,7 +63,7 @@ CREATE TABLE `participate` (
   `comment`         varchar(64)   NOT NULL    COMMENT '参与留言',
   `amount`          decimal(10,2) DEFAULT 0   COMMENT '打赌参与金额,单位元',
   
-  `bet_id`          bigint(20)    NOT NULL    COMMENT 'betID',
+  `bet_id`          bigint(20)    NOT NULL    COMMENT '打赌betID',
   `user_id`         bigint(20)    NOT NULL    COMMENT '组织者userID',
   `partner_id`      bigint(20)    NOT NULL    COMMENT '参与者userID',
   PRIMARY KEY (`id`)
@@ -79,7 +79,7 @@ CREATE TABLE `distribution` (
   `capital`         decimal(10,2) DEFAULT 0   COMMENT '打赌活动总资金池,单位元',
   `income`          decimal(10,2) DEFAULT 0   COMMENT '打赌收益金额,单位元',
   
-  `bet_id`          bigint(20)    NOT NULL    COMMENT 'betID',
-  `user_id`         bigint(20)    NOT NULL    COMMENT 'userID',
+  `bet_id`          bigint(20)    NOT NULL    COMMENT '打赌betID',
+  `user_id`         bigint(20)    NOT NULL    COMMENT '组织者userID',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30000 DEFAULT CHARSET=utf8 COMMENT='打赌结果资金分配表';
