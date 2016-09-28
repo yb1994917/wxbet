@@ -18,6 +18,10 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+    public void save(User user) {
+        userDao.save(user);
+    }
+
     public User getUserByOpenId(String openId) {
         User user = getUserByOpenIdIfExist(openId);
         if (user == null) {

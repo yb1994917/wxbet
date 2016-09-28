@@ -5,17 +5,21 @@ package com.msun.wxbet.support.interceptor;
 
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.lamfire.json.JSON;
 import com.msun.wxbet.cons.Definition;
+import com.msun.wxbet.persistence.model.User;
+import com.msun.wxbet.persistence.service.UserService;
 
 /**
  * @author zxc Sep 19, 2016 3:08:55 PM
@@ -24,11 +28,14 @@ import com.msun.wxbet.cons.Definition;
 public class WechatAuthorizationInterceptor extends HandlerInterceptorAdapter implements Definition {
 
     @Value("${appId}")
-    private String appId;
+    private String        appId;
     @Value("${appSecret}")
-    private String appSecret;
+    private String        appSecret;
     @Value("${baseUrl}")
-    private String baseUrl;
+    private String        baseUrl;
+
+    @Autowired
+    protected UserService userService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -52,6 +59,7 @@ public class WechatAuthorizationInterceptor extends HandlerInterceptorAdapter im
             _.info("[wechat oauth2] " + jsonObject);
             if (jsonObject.containsKey("openid")) {
                 openId = jsonObject.getString("openid");
+                saveUser(jsonObject);
                 request.getSession(true).setAttribute(OPENID_SESSION_KEY, openId);
                 return true;
             } else {
@@ -65,11 +73,17 @@ public class WechatAuthorizationInterceptor extends HandlerInterceptorAdapter im
             if (request.getQueryString() != null) {
                 backUrl += "?" + request.getQueryString();
             }
+            /**
+             * <pre>
+             * 应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），
+             * snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息）
+             * </pre>
+             */
             String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=";
             url += appId;
             url += "&redirect_uri=";
             url += URLEncoder.encode(backUrl, "UTF-8");
-            url += "&response_type=code&scope=snsapi_base#wechat_redirect";
+            url += "&response_type=code&scope=snsapi_userinfo#wechat_redirect";
             _.info("[wechat get openId] " + url);
             response.sendRedirect(url);
             return false;
@@ -79,5 +93,38 @@ public class WechatAuthorizationInterceptor extends HandlerInterceptorAdapter im
             // ------------------------
             return true;
         }
+    }
+
+    /**
+     * <pre>
+     * {
+     *     "subscribe": 1, 
+     *     "openid": "o6_bmjrPTlm6_2sgVt7hMZOPfL2M", 
+     *     "nickname": "Band", 
+     *     "sex": 1, 
+     *     "language": "zh_CN", 
+     *     "city": "广州", 
+     *     "province": "广东", 
+     *     "country": "中国", 
+     *     "headimgurl":    "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0", 
+     *     "subscribe_time": 1382694957,
+     *     "unionid": " o6_bmasdasdsad6_2sgVt7hMZOPfL"
+     *     "remark": "",
+     *     "groupid": 0
+     * }
+     * </pre>
+     * 
+     * @param json
+     */
+    private void saveUser(JSON json) {
+        String openid = json.getString("openid");
+        String nickname = json.getString("nickname");
+        String headimgurl = json.getString("headimgurl");
+        User user = userService.getUserByOpenId(openid);
+        if (user == null) user = new User(openid);
+        user.setNickname(nickname);
+        user.setAvatar(headimgurl);
+        user.setCreateTime(new Date());
+        userService.save(user);
     }
 }

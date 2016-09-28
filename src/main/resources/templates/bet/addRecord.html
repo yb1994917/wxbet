@@ -22,12 +22,10 @@
                     <textarea id="apply-des" placeholder="这一刻的想法..."></textarea>
                 </div>
                 <div class="col-30 uploader-content">
-                    <div class="uploader-button">
-                    <span class="img-content"><img src="/images/content-img.png" alt=""></span>
-                    </div>
-                    <input id="file-upload" type="file" accept="image/*" style="display:none;"/>
-                </div>
-                
+		            <div class="uploader-button"></div>
+		            <input id="file-upload" type="file" accept="image/*" style="display:none;" />
+		            <input type="hidden" id="pic" name="pic" value="">
+		        </div>
             </div>
         </div>
         <div class="button-submit">
@@ -40,6 +38,7 @@
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script th:inline="javascript">
 /*<![CDATA[*/
+    /*
 	wx.config({
 		debug: [[${jsApiDebug}]],
 		appId: [[${jsApiAppId}]],
@@ -48,6 +47,7 @@
 		signature: [[${jsApiSignature}]],
 		jsApiList: ["chooseImage", "chooseWXPay", "uploadImage", "closeWindow"]
 	});
+	*/
 /*]]>*/
 </script>
 </body>

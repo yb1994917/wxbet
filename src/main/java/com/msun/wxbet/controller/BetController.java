@@ -98,11 +98,11 @@ public class BetController extends BaseController {
 
     @RequestMapping(value = "/progress", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResult progress_save(Long betId, String content, String serverId) {
+    public JsonResult progress_save(Long betId, String content, String pic) {
         Progress progress = new Progress(userId(), betId);
         progress.setCreateTime(new Date());
         progress.setContent(content);
-        progress.setPic(serverId);
+        progress.setPic(pic);
         betService.save(progress);
         return ok("成功");
     }
