@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.lamfire.json.JSON;
+import com.lamfire.utils.StringUtils;
 import com.msun.wxbet.cons.Definition;
 import com.msun.wxbet.persistence.model.User;
 import com.msun.wxbet.persistence.service.UserService;
@@ -122,8 +123,8 @@ public class WechatAuthorizationInterceptor extends HandlerInterceptorAdapter im
         String headimgurl = json.getString("headimgurl");
         User user = userService.getUserByOpenIdIfExist(openid);
         if (user == null) user = new User(openid);
-        user.setNickname(nickname);
-        user.setAvatar(headimgurl);
+        if (StringUtils.isNotEmpty(nickname)) user.setNickname(nickname);
+        if (StringUtils.isNotEmpty(headimgurl)) user.setAvatar(headimgurl);
         user.setCreateTime(new Date());
         userService.save(user);
     }
