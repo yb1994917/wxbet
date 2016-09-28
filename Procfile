@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -cp target/*.jar com.msun.wxbet.WxbetApplication
