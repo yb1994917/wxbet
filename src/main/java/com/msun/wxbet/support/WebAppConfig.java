@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,6 +21,7 @@ import com.msun.wxbet.support.interceptor.WechatJsApiInterceptor;
  * @author zxc Feb 22, 2016 8:36:05 PM
  */
 // @EnableRedisHttpSession
+@Configuration
 @EnableScheduling
 @EnableAutoConfiguration
 @ComponentScan("com.msun")
