@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/conf:target/lib/* com.msun.wxbet.WxbetApplication
+web: java $JAVA_OPTS -Dserver.port=$PORT -cp target/conf:target/lib/* com.msun.wxbet.WxbetApplication
