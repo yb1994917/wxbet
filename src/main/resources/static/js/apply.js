@@ -59,15 +59,18 @@ $(function () {
         
         //创建打赌
         page.on('tap', '#apply-create', function () {
+        	$(this).prop("disabled", "disabled");
         	var content = $("#apply-des").val();
         	var amount = $("#apply-money").val();
         	var finishTime = $("#apply-finishTime").val();
         	if(content==null||content==""||content==undefined){
         		alert("内容必须填写！");
+        		$(this).prop("disabled", "");
         		return false;
         	}
         	if(amount==null||amount==""||amount==undefined){
         		alert("金额必须填写！");
+        		$(this).prop("disabled", "");
         		return false;
         	}
             var jsonParam = { 'content': content, 'amount': amount, 'finishTime': finishTime };
@@ -95,11 +98,13 @@ $(function () {
  							});
  						 }
                      } else {
+                    	 $(this).prop("disabled", "");
                          $.alert(data.message);
                          return;
                      }
                  },
                  'error': function (xhr, errorType, error) {
+                	 $(this).prop("disabled", "");
                      $.alert('支付发生异常');
                  }
             });

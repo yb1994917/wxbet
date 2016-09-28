@@ -108,13 +108,16 @@ $(function () {
         });
         
         page.on('tap', '#btn-add', function () {
+        	$(this).prop("disabled", "disabled");
             var betId = $(this).attr('data_id');
             if (!betId) {
+            	$(this).prop("disabled", "");
                 $.alert('记录的打赌无效');
                 return;
             }
             var content = $.trim($('#apply-des').val());
             if (content.length === 0) {
+            	$(this).prop("disabled", "");
                 $.alert('请输入文字或上传图片');
                 return;
             }
@@ -129,10 +132,12 @@ $(function () {
                     if (data.status) {
                         location.href = '/bet/detail/' + betId;
                     } else {
+                    	$(this).prop("disabled", "");
                         $.alert(data.message);
                     }
                 },
                 'error': function (xhr, errorType, error) {
+                	$(this).prop("disabled", "");
                     $.alert('创建失败');
                 }
             });
