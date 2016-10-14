@@ -19,3 +19,5 @@ logs/
 #idea
 *.idea
 *.iml
+
+application.properties
