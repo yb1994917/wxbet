@@ -1,5 +1,9 @@
 --wxbet 数据库表结构
 --state状态 0=有效(默认),1=无效
+--grant all on *.* to 'bet'@'%' identified by 'xxxx';
+--mysql -h 112.74.192.219 -u bet -p'xxxx'
+--CREATE DATABASE `wxbet` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
