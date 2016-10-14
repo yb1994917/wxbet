@@ -10,7 +10,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
-import com.msun.wxbet.support.utils.MUSNUtils;
+import com.msun.wxbet.support.utils.MSUNUtils;
 
 /**
  * 打赌
@@ -82,7 +82,7 @@ public class Bet extends IdEntity {
     @Transient
     public int getFinishTimeDesc() {
         if (finishTime == null) return 0;
-        return MUSNUtils.subtractDays(finishTime.getTime(), System.currentTimeMillis());
+        return MSUNUtils.subtractDays(finishTime.getTime(), System.currentTimeMillis());
     }
 
     public Date getFinishTime() {

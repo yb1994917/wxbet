@@ -23,7 +23,11 @@ public class User extends IdEntity {
     private String  nickname;
     private String  avatar;
     private Integer state;
-    private Long    income;                 // 已赚取,累计收入
+    private Float   income;                 // 已赚取,累计收入
+    private Float   disburse;               // 已支付,累计支出
+    private int     credit;                 // 用户信用额度
+    private int     betTotal;               // 累计打赌数量
+    private int     betSuccess;             // 累计打赌成功数量
 
     public User() {
 
@@ -33,12 +37,44 @@ public class User extends IdEntity {
         this.openid = openid;
     }
 
-    public Long getIncome() {
+    public Float getIncome() {
         return income;
     }
 
-    public void setIncome(Long income) {
+    public void setIncome(Float income) {
         this.income = income;
+    }
+
+    public Float getDisburse() {
+        return disburse;
+    }
+
+    public void setDisburse(Float disburse) {
+        this.disburse = disburse;
+    }
+
+    public int getCredit() {
+        return credit;
+    }
+
+    public void setCredit(int credit) {
+        this.credit = credit;
+    }
+
+    public int getBetTotal() {
+        return betTotal;
+    }
+
+    public void setBetTotal(int betTotal) {
+        this.betTotal = betTotal;
+    }
+
+    public int getBetSuccess() {
+        return betSuccess;
+    }
+
+    public void setBetSuccess(int betSuccess) {
+        this.betSuccess = betSuccess;
     }
 
     public String getOpenid() {

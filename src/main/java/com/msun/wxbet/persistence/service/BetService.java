@@ -5,12 +5,8 @@ package com.msun.wxbet.persistence.service;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.lamfire.utils.Lists;
@@ -19,6 +15,7 @@ import com.msun.wxbet.persistence.dao.BetDao;
 import com.msun.wxbet.persistence.dao.ProgressDao;
 import com.msun.wxbet.persistence.model.Bet;
 import com.msun.wxbet.persistence.model.Progress;
+import com.msun.wxbet.support.utils.MSUNUtils;
 
 /**
  * @author zxc Sep 19, 2016 4:15:02 PM
@@ -71,7 +68,7 @@ public class BetService {
     }
 
     public Page<Bet> listBet(int page, int size) {
-        return betDao.findAll(pageRequest(page, size, null));
+        return betDao.findAll(MSUNUtils.pageRequest(page, size, null));
     }
 
     public void save(Bet bet) {
@@ -98,7 +95,7 @@ public class BetService {
     }
 
     public Page<Progress> listProgress(int page, int size) {
-        return progressDao.findAll(pageRequest(page, size, null));
+        return progressDao.findAll(MSUNUtils.pageRequest(page, size, null));
     }
 
     public void save(Progress progress) {
@@ -108,16 +105,5 @@ public class BetService {
     public void delProgress(Long id) {
         if (id == null) return;
         progressDao.delete(id);
-    }
-
-    // 创建分页请求
-    private PageRequest pageRequest(int pageNumber, int pageSize, String sortType) {
-        Sort sort = new Sort(Direction.DESC, "id");
-        if (StringUtils.equalsIgnoreCase("auto", sortType)) {
-            sort = new Sort(Direction.DESC, "id");
-        } else if (StringUtils.equalsIgnoreCase("update_time", sortType)) {
-            sort = new Sort(Direction.DESC, "update_time");
-        }
-        return new PageRequest(pageNumber - 1, pageSize, sort);
     }
 }

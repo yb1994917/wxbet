@@ -11,7 +11,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
-import com.msun.wxbet.support.utils.MUSNUtils;
+import com.msun.wxbet.support.utils.MSUNUtils;
 
 /**
  * 参与,鼓励
@@ -87,7 +87,7 @@ public class Participate extends IdEntity {
 
     @Transient
     public String getCreateTimeDesc() {
-        return MUSNUtils.isToDay(createTime) ? ("今天" + new SimpleDateFormat("HH:mm").format(createTime)) : new SimpleDateFormat(
+        return MSUNUtils.isToDay(createTime) ? ("今天" + new SimpleDateFormat("HH:mm").format(createTime)) : new SimpleDateFormat(
                                                                                                                                 "MM-dd HH:mm").format(createTime);
     }
 
