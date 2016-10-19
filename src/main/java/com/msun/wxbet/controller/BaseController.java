@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.lamfire.json.JSON;
 import com.msun.wxbet.cons.Definition;
 import com.msun.wxbet.persistence.model.User;
 import com.msun.wxbet.persistence.service.BetService;
+import com.msun.wxbet.persistence.service.InviteSerivce;
 import com.msun.wxbet.persistence.service.ParticipateService;
 import com.msun.wxbet.persistence.service.UserService;
 import com.msun.wxbet.support.FileHelper;
@@ -22,6 +24,9 @@ import com.msun.wxbet.support.wechat.WechatPayment;
  * @author zxc Aug 8, 2016 5:00:13 PM
  */
 public class BaseController implements Definition {
+
+    @Value("${debug}")
+    protected boolean            debug;
 
     @Autowired
     protected FileHelper         fileHelper;
@@ -34,6 +39,8 @@ public class BaseController implements Definition {
     protected UserService        userService;
     @Autowired
     protected BetService         betService;
+    @Autowired
+    protected InviteSerivce      inviteSerivce;
     @Autowired
     protected ParticipateService participateService;
 

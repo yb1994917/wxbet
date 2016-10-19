@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +29,23 @@ import com.msun.wxbet.support.wechat.WechatPayment;
 @RequestMapping(value = "/bet")
 public class BetController extends BaseController {
 
-    @Value("${debug}")
-    private boolean       debug;
-
     @Autowired
     private WechatPayment wechatPayment;
+
+    // 打赌详情
+    @RequestMapping(value = "/detail/{betId}", method = RequestMethod.GET)
+    public ModelAndView bet_detail(@PathVariable Long betId) {
+        Bet bet = betService.bet(betId);
+        bet.setPv(bet.getPv() + 1);
+        betService.save(bet);
+
+        List<Progress> progresseList = betService.listProgress(betId);
+        List<Participate> participateList = participateService.listParticipate(betId);
+        return new ModelAndView("bet/applydetail")//
+        .addObject("bet", bet)//
+        .addObject("progresseList", progresseList)//
+        .addObject("participateList", participateList);
+    }
 
     // 创建打赌
     @RequestMapping(value = "/apply", method = RequestMethod.GET)
@@ -71,21 +82,6 @@ public class BetController extends BaseController {
         bet.setUpdateTime(new Date());
         betService.save(bet);
         return new ModelAndView("bet/apply");
-    }
-
-    // 打赌详情
-    @RequestMapping(value = "/detail/{betId}", method = RequestMethod.GET)
-    public ModelAndView bet_detail(@PathVariable Long betId) {
-        Bet bet = betService.bet(betId);
-        bet.setPv(bet.getPv() + 1);
-        betService.save(bet);
-
-        List<Progress> progresseList = betService.listProgress(betId);
-        List<Participate> participateList = participateService.listParticipate(betId);
-        return new ModelAndView("bet/applydetail")//
-        .addObject("bet", bet)//
-        .addObject("progresseList", progresseList)//
-        .addObject("participateList", participateList);
     }
 
     // 打赌记录
