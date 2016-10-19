@@ -41,7 +41,7 @@ public class BetController extends BaseController {
 
         List<Progress> progresseList = betService.listProgress(betId);
         List<Participate> participateList = participateService.listParticipate(betId);
-        return new ModelAndView("bet/applydetail")//
+        return new ModelAndView("bet/apply/applydetail")//
         .addObject("bet", bet)//
         .addObject("progresseList", progresseList)//
         .addObject("participateList", participateList);
@@ -81,7 +81,7 @@ public class BetController extends BaseController {
         bet.setVisible(visible);
         bet.setUpdateTime(new Date());
         betService.save(bet);
-        return new ModelAndView("bet/apply");
+        return new ModelAndView("bet/apply/apply");
     }
 
     // 打赌记录
@@ -109,7 +109,7 @@ public class BetController extends BaseController {
         Bet bet = betService.bet(betId);
         List<Progress> progresseList = betService.listProgress(betId);
         List<Participate> participateList = participateService.listParticipate(betId);
-        return new ModelAndView("bet/showdetail")//
+        return new ModelAndView("bet/apply/showdetail")//
         .addObject("bet", bet)//
         .addObject("progresseList", progresseList)//
         .addObject("participateList", participateList);
@@ -156,7 +156,7 @@ public class BetController extends BaseController {
         Bet bet = betService.bet(betId);
         List<Progress> progresseList = betService.listProgress(betId);
         List<Participate> participateList = participateService.listParticipate(betId);
-        return new ModelAndView("bet/betResult")//
+        return new ModelAndView("bet/apply/betResult")//
         .addObject("bet", bet)//
         .addObject("progresseList", progresseList)//
         .addObject("participateList", participateList);
@@ -172,7 +172,7 @@ public class BetController extends BaseController {
         // 我的鼓励
         List<Participate> participateList = participateService.listParticipateByPublisher(userId());
         long partiCount = participateService.countParticipateByPublisher(userId());
-        return new ModelAndView("bet/applylist")//
+        return new ModelAndView("bet/apply/applylist")//
         .addObject("betCount", betCount)//
         .addObject("betList", betList)//
         .addObject("betHistoryList", betHistoryList)//

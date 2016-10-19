@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>发起鼓励</title>
+
+    <link rel="stylesheet" href="/css/base.min.css">
+    <link rel="stylesheet" href="/css/apply.css">
+</head>
+<body>
+<div class="page page-common page-apply">
+    <div class="content">
+        <div class="list-block">
+            <ul>
+                <li class="align-top">
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-input textarea-content">
+                                <div class="fontnum"><span class="nums">0</span>/20</div>
+                                <textarea id="apply-des" placeholder="想要对方完成的目标" maxlength="20" name="content"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="list-block">
+            <ul>
+                <li>
+                    <div class="item-content item-link">
+                        <div class="item-inner">
+                            <div class="item-title label">完成时间</div>
+                            <div class="item-input datetime-content">
+                                <span class="showdate"></span>
+                                <input id="apply-datetime" type="text" name="finishTime"class="text-right">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="list-block list-2">
+            <ul>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">我的鼓励金额</div>
+                            <div class="item-input">
+                                <input type="text" class="text-right" name="amount" placeholder="填写金额">
+                            </div>
+                            <div class="item-after">元</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="other-content">
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">对方打赌金额</div>
+                            <div class="item-input">
+                                <input type="text" class="text-right" name="otherAmount" placeholder="填写金额">
+                            </div>
+                            <div class="item-after">元</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="content-block-title tip">
+            <span>此为一对一打赌，由对方判定结果。</span>
+            <span class="right self">对方无需付费 <a href="javascript:;">修改</a></span>
+            <span class="right other"><a href="javascript:;">设为免费</a></span>
+        </div>
+        <p class="botton-content">
+            <a href="./invitedetail.html" class="button button-fill button-error">支付鼓励金额后邀请朋友</a>
+        </p>
+        <p class="explain">
+            <span>30秒读懂玩法</span>
+        </p>
+    </div>
+</div>
+<div class="rules-mask">
+    <span class="close-mask">
+        <i class="fa fa-times"></i>
+    </span>
+    <div class="swiper-container rules-swiper" data-space-between='10'>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="/images/a_03.png" alt=""></div>
+            <div class="swiper-slide"><img src="/images/b_03_03.png" alt=""></div>
+            <div class="swiper-slide"><img src="/images/c_03_03.png" alt=""></div>
+            <div class="swiper-slide"><img src="/images/4_03.png" alt=""></div>
+        </div>
+        <div class="swiper-pagination rules-pagination"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/base.min.js"></script>
+<script type="text/javascript" src="/js/apply.js"></script>
+</body>
+</html>

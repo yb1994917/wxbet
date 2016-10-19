@@ -37,7 +37,7 @@ public class InviteController extends BaseController {
     // 创建邀约打赌
     @RequestMapping(value = "/apply", method = RequestMethod.GET)
     public ModelAndView bet_create() {
-        return new ModelAndView("bet/apply");
+        return new ModelAndView("invite/apply");
     }
 
     @RequestMapping(value = "/apply", method = RequestMethod.POST)
