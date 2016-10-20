@@ -71,6 +71,44 @@ $(function () {
                 money = 1;
             }
         });
+        page.on('tap', '.btn-content', function () {
+            $.modal({
+                extraClass: 'modal-money',
+                text:'<p>其他金额</p>'+
+                '<div class="input-content">' +
+                '<span>金额（元）</span><input type="text"  placeholder="可填写0.1-1000">'+
+                '</div><p class="alert">只允许输入数字</p>',
+                buttons: [
+                    {
+                        text: '取消',
+                        bold: true
+                    },
+                    {
+                        text: '微信支付',
+                        bold: true,
+                        close: false,
+                        onClick: function() {
+                            var num = $('.modal-money .modal-text-input').val();
+                            var r = new RegExp(/^\d+$/);
+                            console.log(r.test(num));
+                            if(r.test(num)){
+                                if(num % 10 == 0 && num > 0.1){
+                                    $('.btn-content,.add-money').find('.money').html($('.modal-money .modal-text-input').val());
+                                    $('.modal-money .alert').removeClass('error');
+                                    $.closeModal();
+                                }else{
+                                    $('.modal-money .alert').html('金额只能为整数');
+                                    $('.modal-money .alert').addClass('error');
+                                }
+                            }else{
+                                $('.modal-money .alert').html('只允许输入数字');
+                                $('.modal-money .alert').addClass('error');
+                            }
+                        }
+                    }
+                ]
+            });
+        });
 
         /**
          * tap
@@ -89,9 +127,58 @@ $(function () {
             });
         });
 
+        /**
+         * 点击x元打赌
+         */
+        page.on('tap','.add-money',function () {
+            $.modal({
+                extraClass: 'modal-resultover',
+                text:'<div class="row no-gutter">' +
+                '<div class="col-100 result-top getmoney">' +
+                '<p>恭喜你获得</p>' +
+                '<p class="money">¥45</p>' +
+                '</div>' +
+                '<div class="col-100 result-content row">' +
+                '<p class="col-100 button-content"><img src="./images/121212.png"></p>' +
+                '<p class="sub col-100">对方完成后可对结果进行质疑</p>' +
+                '<p class="sub col-100">对方若未完成，则系统将自动转账给你</p>' +
+                '</div>'+
+                '</div>',
+                buttons: [
+                    {
+                        text: '关闭',
+                        bold: true
+                    }
+                ]
+            });
+        });
+
         $(document).on('tap', '.modal-overlay-visible', function () {
             $.closeModal();
         });
+    });
+
+    $(document).on('pageInit','.invite-agree',function(e, id, page){
+        $.modal({
+                extraClass: 'modal-resultover',
+                text:'<div class="row no-gutter">' +
+                '<div class="col-100 result-top getmoney">' +
+                '<p>你正在和他1对1打赌</p>' +
+                '<p class="userimg"><span><img src="http://wx.qlogo.cn/mmopen/ajNVdqHZLLCaUUZrJfUCf0IxlD5U4IoAyNyl8sbvUh5SXTq9LunFK78EkCcrGZ81RhTCibqQWX7sYbMN8JxrSmQ/0" /></span></p>' +
+                '</div>' +
+                '<div class="col-100 result-content row">' +
+                '<p class="col-100 button-content"><img src="./images/3232.png"></p>' +
+                '<p class="sub col-100">对方拥有判定特权，对结果进行最终判定。</p>' +
+                '<p class="sub col-100">记得发图证记录过程哦！</p>' +
+                '</div>'+
+                '</div>',
+                buttons: [
+                    {
+                        text: '关闭',
+                        bold: true
+                    }
+                ]
+            });
     });
     $.init();
 });

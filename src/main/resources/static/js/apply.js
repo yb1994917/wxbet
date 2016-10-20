@@ -29,32 +29,22 @@ $(function () {
                 $('.picker-modal header .pull-right').on('tap',function () {
                     $('.showdate').html(e.value[0]+' '+e.value[1]+' '+e.value[2]+':'+e.value[3]);
                     console.log(resolve_datetime(e.value));
-                    $('#apply-finishTime').val(resolve_datetime(e.value));
                 });
+                $('.close-picker').on('tap',function () {
+                    $("#apply-datetime").picker("close");
+                })
             }
         });
 
         //玩法规则
         page.on('tap', '.explain span', function () {
-            $.modal({
-                text: '<div class="content">' +
-                '<h3>玩法规则</h3>' +
-                '<p class="top"><b>什么是一元鼓励？</b></p>' +
-                '<p>好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字</p>' +
-                '<p class="top"><b>什么是一元鼓励？</b></p>' +
-                '<p>好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字</p>' +
-                '<p class="top"><b>什么是一元鼓励？</b></p>' +
-                '<p>好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字</p>' +
-                '<p class="top"><b>什么是一元鼓励？</b></p>' +
-                '<p>好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字好多字</p>' +
-                '</div>',
-                buttons: [
-                    {
-                        text: '确定',
-                        bold: true
-                    }
-                ]
+            $(".rules-mask").addClass('show');
+            $(".rules-swiper").swiper({
+                pagination : '.rules-pagination'
             });
+            $(".rules-mask").off('tap').on('tap', '.close-mask', function () {
+                $(".rules-mask").removeClass('show');
+            })
         });
         
         //创建打赌
