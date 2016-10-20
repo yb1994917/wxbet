@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,18 +24,18 @@
                         <div class="item-inner">
                             <div class="item-title" th:text="${user.nickname}">葫芦</div>
                             <div class="item-after">
-                                <a th:href="@{'/bet/apply'}" href="./apply.html" class="apply-button">发起目标</a>
+                                <a th:href="@{'/bet/apply'}" href="./apply.html" class="apply-button">发起打赌</a>
                             </div>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
-        
+
         <div class="list-block apply-list">
             <ul>
                 <li>
-                    <a th:href="@{/bet/list}" href="./applylist.html" class="item-content item-link">
+                    <a href="./applylist.html" class="item-content item-link">
                         <div class="item-inner">
                             <div class="item-title">我的打赌</div>
                             <div class="item-after" th:text="${betCount}">2</div>
@@ -45,7 +43,7 @@
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/bet/list}" href="./invitelist.html" class="item-content item-link">
+                    <a href="./invitelist.html" class="item-content item-link">
                         <div class="item-inner">
                             <div class="item-title">我的鼓励</div>
                             <div class="item-after">20</div>
@@ -67,18 +65,18 @@
         </div>
         <div class="content-block-title">统计</div>
         <div class="list-block apply-statistics row no-gutter">
-            <div class="col-33">
-                <h3>95%</h3>
-                <p class="sub">完成率</p>
-            </div>
-            <div class="col-33">
-                <h3 th:inline="text">[[${user.income >0 ? T(com.lamfire.utils.NumberUtils).format(user.income,2) : 0}]] <span>元</span></h3>
-                <p class="sub left">总赚取 <i class="fa fa-question-circle-o"></i></p>
-            </div>
-            <div class="col-33">
-                <h3>150 </h3>
-                <p class="sub left">信用度 <i class="fa fa-question-circle-o"></i></p>
-            </div>
+                <div class="col-33">
+                    <h3>95%</h3>
+                    <p class="sub">完成率</p>
+                </div>
+                <div class="col-33">
+                    <h3 th:inline="text">[[${user.income >0 ? T(com.lamfire.utils.NumberUtils).format(user.income,2) : 0}]] <span>元</span></h3>
+                    <p class="sub left">总赚取 <i class="fa fa-question-circle-o"></i></p>
+                </div>
+                <div class="col-33">
+                    <h3>150 </h3>
+                    <p class="sub left">信用度 <i class="fa fa-question-circle-o"></i></p>
+                </div>
         </div>
 
     </div>

@@ -13,7 +13,7 @@ CREATE TABLE `user` (
   `openid`          varchar(128)  NOT NULL    COMMENT '微信openid',
   `create_time` 	datetime      NOT NULL    COMMENT '数据记录创建时间',
   `update_time` 	datetime      NOT NULL    COMMENT '数据记录更新时间',
-  `nickname`        varchar(64)   NOT NULL    COMMENT '用户名称',
+  `nickname`        varchar(64)   DEFAULT ''  COMMENT '用户名称',
   `avatar`          varchar(64)   DEFAULT '/images/noimages.png' COMMENT '用户图像',
   `state`  			int(2)        DEFAULT 1   COMMENT '状态: 0=未审核,1=正常,2=停止',
   `income`  	    decimal(10,2) DEFAULT 0   COMMENT '已赚取,累计收入',
