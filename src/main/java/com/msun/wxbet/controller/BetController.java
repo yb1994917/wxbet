@@ -41,7 +41,7 @@ public class BetController extends BaseController {
 
         List<Progress> progresseList = betService.listProgress(betId);
         List<Participate> participateList = participateService.listParticipate(betId);
-        return new ModelAndView("bet/apply/applydetail")//
+        return new ModelAndView("bet/applydetail")//
         .addObject("bet", bet)//
         .addObject("progresseList", progresseList)//
         .addObject("participateList", participateList);
@@ -75,13 +75,14 @@ public class BetController extends BaseController {
     }
 
     @RequestMapping(value = "/setting", method = RequestMethod.POST)
-    public ModelAndView bet_setting(Long betId, int participate, int visible) {
+    @ResponseBody
+    public JsonResult bet_setting(Long betId, int participate, int visible) {
         Bet bet = betService.bet(betId);
         bet.setParticipate(participate);
         bet.setVisible(visible);
         bet.setUpdateTime(new Date());
         betService.save(bet);
-        return new ModelAndView("bet/apply/apply");
+        return ok("成功");
     }
 
     // 打赌记录
@@ -109,7 +110,7 @@ public class BetController extends BaseController {
         Bet bet = betService.bet(betId);
         List<Progress> progresseList = betService.listProgress(betId);
         List<Participate> participateList = participateService.listParticipate(betId);
-        return new ModelAndView("bet/apply/showdetail")//
+        return new ModelAndView("bet/showdetail")//
         .addObject("bet", bet)//
         .addObject("progresseList", progresseList)//
         .addObject("participateList", participateList);
@@ -155,7 +156,7 @@ public class BetController extends BaseController {
     public ModelAndView supervisor(@PathVariable Long betId) {
         Bet bet = betService.bet(betId);
         List<Participate> participateList = participateService.listParticipate(betId);
-        return new ModelAndView("bet/apply/supervisor")//
+        return new ModelAndView("bet/supervisor")//
         .addObject("bet", bet)//
         .addObject("participateList", participateList);
     }
@@ -166,7 +167,7 @@ public class BetController extends BaseController {
         Bet bet = betService.bet(betId);
         List<Progress> progresseList = betService.listProgress(betId);
         List<Participate> participateList = participateService.listParticipate(betId);
-        return new ModelAndView("bet/apply/betResult")//
+        return new ModelAndView("bet/betResult")//
         .addObject("bet", bet)//
         .addObject("progresseList", progresseList)//
         .addObject("participateList", participateList);
