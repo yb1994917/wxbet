@@ -150,6 +150,16 @@ public class BetController extends BaseController {
         return ok("操作成功");
     }
 
+    // 监督人列表
+    @RequestMapping(value = "/supervisor/{betId}", method = RequestMethod.GET)
+    public ModelAndView supervisor(@PathVariable Long betId) {
+        Bet bet = betService.bet(betId);
+        List<Participate> participateList = participateService.listParticipate(betId);
+        return new ModelAndView("bet/apply/supervisor")//
+        .addObject("bet", bet)//
+        .addObject("participateList", participateList);
+    }
+
     // 打赌结果领取奖金
     @RequestMapping(value = "/result/{betId}", method = RequestMethod.GET)
     public ModelAndView detailOther(@PathVariable Long betId) {

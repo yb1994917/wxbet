@@ -46,7 +46,7 @@ public class WechatController extends BaseController {
         try {
             mv.addObject("json", wechatHelper.getMenuJson());
         } catch (Exception e) {
-            e.printStackTrace();
+            _.error("wechatmenuinit getMenuJson error!", e);
         }
         return mv;
     }
