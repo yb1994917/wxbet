@@ -47,12 +47,13 @@ public class BetController extends BaseController {
         .addObject("participateList", participateList);
     }
 
-    // 创建打赌
+    // 自发创建打赌
     @RequestMapping(value = "/apply", method = RequestMethod.GET)
     public ModelAndView bet_create() {
         return new ModelAndView("bet/apply");
     }
 
+    // 提交创建打赌
     @RequestMapping(value = "/apply", method = RequestMethod.POST)
     @ResponseBody
     public JsonResult bet_save(String content, String finishTime, Float amount) throws Exception {
@@ -74,6 +75,7 @@ public class BetController extends BaseController {
         }
     }
 
+    // 打赌设置
     @RequestMapping(value = "/setting", method = RequestMethod.POST)
     @ResponseBody
     public JsonResult bet_setting(Long betId, int participate, int visible) {
@@ -93,6 +95,7 @@ public class BetController extends BaseController {
         .addObject("bet", bet);
     }
 
+    // 提交打赌记录
     @RequestMapping(value = "/progress", method = RequestMethod.POST)
     @ResponseBody
     public JsonResult progress_save(Long betId, String content, String pic) {
@@ -110,12 +113,13 @@ public class BetController extends BaseController {
         Bet bet = betService.bet(betId);
         List<Progress> progresseList = betService.listProgress(betId);
         List<Participate> participateList = participateService.listParticipate(betId);
-        return new ModelAndView("bet/showdetail")//
+        return new ModelAndView("bet/join")//
         .addObject("bet", bet)//
         .addObject("progresseList", progresseList)//
         .addObject("participateList", participateList);
     }
 
+    // 提交参与打赌
     @RequestMapping(value = "/join", method = RequestMethod.POST)
     @ResponseBody
     public JsonResult dojoin(Long betId, Float amount, String name) throws Exception {
@@ -151,7 +155,7 @@ public class BetController extends BaseController {
         return ok("操作成功");
     }
 
-    // 监督人列表
+    // 监督人参与人列表
     @RequestMapping(value = "/supervisor/{betId}", method = RequestMethod.GET)
     public ModelAndView supervisor(@PathVariable Long betId) {
         Bet bet = betService.bet(betId);

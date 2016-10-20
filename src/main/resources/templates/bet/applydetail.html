@@ -67,6 +67,11 @@
                         <div class="item-after user-money" th:inline="text">¥[[${data.amount >0 ? T(com.lamfire.utils.NumberUtils).format(data.amount,2) : 0}]]</div>
                     </div>
                 </li>
+                <li th:if="${participateList}">
+                    <a class="item-content none-content" href="./supervisor.html">
+                        <p>全部监督者（45）   <span class="icon icon-right"></span></p>
+                    </a>
+                </li>
                 <li class="item-content none-content" th:if="${participateList == null || participateList.size() == 0}">
                     <p>还未有人鼓励，右上角分享邀请吧！</p>
                 </li>
@@ -128,8 +133,29 @@
             <p>结果详情</p>
         </div>
     </nav>
+    
+    <nav class="showdetail-bar bar bar-tab row no-gutter">
+        <span class="tip">葫芦完成了这个目标（收益 ¥2 元）</span>
+        <div class="col-60 setting-button">
+            <div class="row ng-gutter">
+                <div class="col-30">
+                    <span class="btn reduce"> - </span>
+                </div>
+                <div class="col-40">
+                    <span class="btn-content"><i class="money">1</i>元</span>
+                </div>
+                <div class="col-30">
+                    <span class="btn plus"> + </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-40 add-money">
+            <span class="money">1</span><span>元鼓励</span>
+        </div>
+    </nav>
 </div>
 <script type="text/javascript" src="/js/base.min.js"></script>
 <script type="text/javascript" src="/js/applydetail.js"></script>
+<script type="text/javascript" src="/js/showdetail.js"></script>
 </body>
 </html>

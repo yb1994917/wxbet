@@ -40,6 +40,7 @@ public class InviteController extends BaseController {
         return new ModelAndView("invite/apply");
     }
 
+    // 提交创建邀约打赌
     @RequestMapping(value = "/apply", method = RequestMethod.POST)
     @ResponseBody
     public JsonResult bet_save(String content, String finishTime, Float amount) throws Exception {

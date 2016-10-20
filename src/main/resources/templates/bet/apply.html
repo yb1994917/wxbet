@@ -16,7 +16,6 @@
 <body>
 <div class="page page-common page-apply">
     <div class="content">
-    <form method="post" class="bet-apply" action="/bet/apply">
         <div class="list-block">
             <ul>
                 <li class="align-top">
@@ -24,51 +23,67 @@
                         <div class="item-inner">
                             <div class="item-input textarea-content">
                                 <div class="fontnum"><span class="nums">0</span>/20</div>
-                                <textarea id="apply-des" maxlength="20" name="content" placeholder="我想要实现的目标"></textarea>
+                                <textarea id="apply-des" placeholder="我想要实现的目标" maxlength="20" name="content"></textarea>
                             </div>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
-        <div class="content-block-title">打赌条件</div>
         <div class="list-block">
             <ul>
-                <li>
-                    <div class="item-content">
-                        <div class="item-inner">
-                            <div class="item-title label">打赌金额</div>
-                            <div class="item-input">
-                                <input type="text" id="apply-money" class="text-right" name="amount" placeholder="填写金额">
-                            </div>
-                            <div class="item-after">元</div>
-                        </div>
-                    </div>
-                </li>
                 <li>
                     <div class="item-content item-link">
                         <div class="item-inner">
                             <div class="item-title label">完成时间</div>
                             <div class="item-input datetime-content">
                                 <span class="showdate"></span>
-                                <input id="apply-datetime" type="text" class="text-right">
-                                <input id="apply-finishTime" type="hidden" class="text-right" name="finishTime">
+                                <input id="apply-datetime" type="text" class="text-right" name="finishTime">
                             </div>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
-        <div class="content-block-title tip">完成时间后24小时未处理，默认未完成，打赌金额平分给参与者</div>
+        <div class="list-block list-2">
+            <ul>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title label">打赌金额</div>
+                            <div class="item-input">
+                                <input type="text" class="text-right" placeholder="填写金额" name="amount">
+                            </div>
+                            <div class="item-after">元</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="content-block-title tip">完成时间后24小时未处理，默认目标失败。</div>
         <p class="botton-content">
             <a href="javascript:;" id="apply-create" class="button button-fill button-success">塞钱打赌</a>
         </p>
         <p class="explain">
-            <span>玩法规则</span>
+            <span>30秒读懂玩法</span>
         </p>
-        </form>
     </div>
 </div>
+<div class="rules-mask">
+    <span class="close-mask">
+        <i class="fa fa-times"></i>
+    </span>
+    <div class="swiper-container rules-swiper" data-space-between='10'>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="/images/a_03.png" alt=""></div>
+            <div class="swiper-slide"><img src="/images/b_03_03.png" alt=""></div>
+            <div class="swiper-slide"><img src="/images/c_03_03.png" alt=""></div>
+            <div class="swiper-slide"><img src="/images/4_03.png" alt=""></div>
+        </div>
+        <div class="swiper-pagination rules-pagination"></div>
+    </div>
+</div>
+
 <script type="text/javascript" src="/js/base.min.js"></script>
 <script type="text/javascript" src="/js/apply.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>

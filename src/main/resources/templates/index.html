@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
             <div class="list-group">
                 <ul>
                     <li>
-                        <a th:href="@{/bet/apply}" href="./apply.html" class="item-link item-content">
+                        <a th:href="@{/bet/apply}"  href="./apply.html" class="item-link item-content">
                             <div class="item-inner">
                                 <div class="item-title">发起打赌（apply.html）</div>
                             </div>
@@ -28,21 +28,77 @@
                     <li>
                         <a th:href="@{/bet/detail}" href="./applydetail.html" class="item-link item-content">
                             <div class="item-inner">
-                                <div class="item-title">发起人详情页（applydetail.html）</div>
+                                <div class="item-title">发起打赌详情（applydetail.html）</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/bet/join}" href="./applydetailshow.html" class="item-link item-content">
+                            <div class="item-inner">
+                                <div class="item-title">发起打赌参与（applydetailshow.html）</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./applydetailover.html" class="item-link item-content">
+                            <div class="item-inner">
+                                <div class="item-title">发起打赌结束（applydetailover.html）</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/bet/join}" href="./invite.html" class="item-link item-content">
+                            <div class="item-inner">
+                                <div class="item-title">发起鼓励（invite.html）</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/bet/join}" href="./invitedetail.html" class="item-link item-content">
+                            <div class="item-inner">
+                                <div class="item-title">发起鼓励详情（invitedetail.html）</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/bet/join}" href="./invitedetail2.html" class="item-link item-content">
+                            <div class="item-inner">
+                                <div class="item-title">发起鼓励详情2（invitedetail2.html）</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/bet/join}" href="./invitedetailshow.html" class="item-link item-content">
+                            <div class="item-inner">
+                                <div class="item-title">被邀请详情（invitedetailshow.html）</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/bet/join}" href="./invitedetailover.html" class="item-link item-content">
+                            <div class="item-inner">
+                                <div class="item-title">邀请人判定结果（invitedetailover.html）</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/bet/join}" href="./invitedetailagree.html" class="item-link item-content">
+                            <div class="item-inner">
+                                <div class="item-title">接受邀请详情（invitedetailagree.html）</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/bet/join}" href="./invitedetailrefuse.html" class="item-link item-content">
+                            <div class="item-inner">
+                                <div class="item-title">拒绝邀请成功（invitedetailrefuse.html）</div>
                             </div>
                         </a>
                     </li>
                     <li>
                         <a th:href="@{/bet/list}" href="./applylist.html" class="item-link item-content">
                             <div class="item-inner">
-                                <div class="item-title">正在打赌列表（applylist.html）</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/bet/join}" href="./showdetail.html" class="item-link item-content">
-                            <div class="item-inner">
-                                <div class="item-title">对方参与（showdetail.html）</div>
+                                <div class="item-title">目标列表（applylist.html）</div>
                             </div>
                         </a>
                     </li>
@@ -61,6 +117,13 @@
                         </a>
                     </li>
                     <li>
+                        <a href="./supervisor.html" class="item-link item-content">
+                            <div class="item-inner">
+                                <div class="item-title">监督人列表（supervisor.html）</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
                         <a th:href="@{/bet/progress}" href="./addrecord.html" class="item-link item-content">
                             <div class="item-inner">
                                 <div class="item-title">添加记录（addrecord.html）</div>
@@ -75,9 +138,23 @@
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/bet/result}" href="./applydetail2.html" class="item-link item-content">
+                        <a href="./toast.html" class="item-link item-content">
                             <div class="item-inner">
-                                <div class="item-title">详情页2（applydetail2.html）</div>
+                                <div class="item-title">提示效果</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content-block-title">暂弃用</div>
+        <div class="list-block contacts-block">
+            <div class="list-group">
+                <ul>
+                    <li>
+                        <a href="./supervisiondetail.html" class="item-link item-content">
+                            <div class="item-inner">
+                                <div class="item-title">监督人页面（supervisiondetail.html）</div>
                             </div>
                         </a>
                     </li>
