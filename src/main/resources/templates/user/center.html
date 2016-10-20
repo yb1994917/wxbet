@@ -33,43 +33,52 @@
                 </li>
             </ul>
         </div>
-
+        
         <div class="list-block apply-list">
             <ul>
                 <li>
                     <a th:href="@{/bet/list}" href="./applylist.html" class="item-content item-link">
                         <div class="item-inner">
-                            <div class="item-title">正在打赌</div>
+                            <div class="item-title">我的打赌</div>
                             <div class="item-after" th:text="${betCount}">2</div>
                         </div>
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/bet/list}" href="./applyrecord.html" class="item-content item-link">
+                    <a th:href="@{/bet/list}" href="./invitelist.html" class="item-content item-link">
                         <div class="item-inner">
-                            <div class="item-title">过往打赌</div>
-                            <div class="item-after" th:text="${betHistoryCount}">20</div>
+                            <div class="item-title">我的鼓励</div>
+                            <div class="item-after">20</div>
                         </div>
                     </a>
                 </li>
             </ul>
         </div>
-        <div class="content-block-title">统计（仅统计我的打赌）</div>
-        <div class="list-block apply-list">
+        <div class="list-block">
             <ul>
-                <li class="item-content">
-                    <div class="item-inner">
-                        <div class="item-title">成功率</div>
-                        <div class="item-after">70%</div>
-                    </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-inner">
-                        <div class="item-title">已赚取</div>
-                        <div class="item-after" th:inline="text">[[${user.income >0 ? T(com.lamfire.utils.NumberUtils).format(user.income,2) : 0}]]元</div>
-                    </div>
+                <li>
+                    <a href="javascript:;" class="item-content item-link">
+                        <div class="item-inner">
+                            <div class="item-title">玩法规则</div>
+                        </div>
+                    </a>
                 </li>
             </ul>
+        </div>
+        <div class="content-block-title">统计</div>
+        <div class="list-block apply-statistics row no-gutter">
+            <div class="col-33">
+                <h3>95%</h3>
+                <p class="sub">完成率</p>
+            </div>
+            <div class="col-33">
+                <h3 th:inline="text">[[${user.income >0 ? T(com.lamfire.utils.NumberUtils).format(user.income,2) : 0}]] <span>元</span></h3>
+                <p class="sub left">总赚取 <i class="fa fa-question-circle-o"></i></p>
+            </div>
+            <div class="col-33">
+                <h3>150 </h3>
+                <p class="sub left">信用度 <i class="fa fa-question-circle-o"></i></p>
+            </div>
         </div>
 
     </div>
