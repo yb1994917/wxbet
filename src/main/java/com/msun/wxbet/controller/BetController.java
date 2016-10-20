@@ -171,22 +171,4 @@ public class BetController extends BaseController {
         .addObject("progresseList", progresseList)//
         .addObject("participateList", participateList);
     }
-
-    // 打赌列表
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ModelAndView applylist() {
-        // 我的打赌
-        List<Bet> betList = betService.listBet(userId(), BetState.SUCCESS);
-        List<Bet> betHistoryList = betService.listBet(userId(), BetState.FINISH, BetState.UN_FINISH, BetState.CANCEL);
-        long betCount = betService.countBet(userId(), BetState.SUCCESS);
-        // 我的鼓励
-        List<Participate> participateList = participateService.listParticipateByPublisher(userId());
-        long partiCount = participateService.countParticipateByPublisher(userId());
-        return new ModelAndView("bet/apply/applylist")//
-        .addObject("betCount", betCount)//
-        .addObject("betList", betList)//
-        .addObject("betHistoryList", betHistoryList)//
-        .addObject("partiCount", partiCount)//
-        .addObject("participateList", participateList);
-    }
 }
