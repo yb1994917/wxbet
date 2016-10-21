@@ -22,17 +22,17 @@ import com.msun.wxbet.support.utils.MSUNUtils;
 @Table(name = "participate")
 public class Participate extends IdEntity {
 
-    private Date   createTime; // 创建时间
-    private String name;      // 用户名称,匿名显示匿名
-    private String comment;   // 打赌内容
-    private Float  amount;    // 打赌参与金额,单位元
+    private Date   createTime;    // 创建时间
+    private String name;          // 用户名称,匿名显示匿名
+    private String comment;       // 打赌内容
+    private Float  amount = 0.00f; // 打赌参与金额,单位元
 
-    private Long   partnerId; // 参与者id
-    private User   partner;   // 参与者
-    private Long   userId;    // 组织者id
-    private User   user;      // 组织者
-    private Long   betId;     // 打赌id
-    private Bet    bet;       // 打赌
+    private Long   partnerId;     // 参与者id
+    private User   partner;       // 参与者
+    private Long   userId;        // 组织者id
+    private User   user;          // 组织者
+    private Long   betId;         // 打赌id
+    private Bet    bet;           // 打赌
 
     public Participate() {
 

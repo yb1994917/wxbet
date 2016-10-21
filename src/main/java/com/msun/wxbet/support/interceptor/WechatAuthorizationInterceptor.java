@@ -3,8 +3,6 @@
  */
 package com.msun.wxbet.support.interceptor;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Date;
@@ -23,6 +21,7 @@ import com.lamfire.utils.StringUtils;
 import com.msun.wxbet.cons.Definition;
 import com.msun.wxbet.persistence.model.User;
 import com.msun.wxbet.persistence.service.UserService;
+import com.msun.wxbet.support.wechat.WechatToken;
 
 /**
  * @author zxc Sep 19, 2016 3:08:55 PM
@@ -43,6 +42,8 @@ public class WechatAuthorizationInterceptor extends HandlerInterceptorAdapter im
 
     @Autowired
     protected UserService userService;
+    @Autowired
+    protected WechatToken wechatToken;
 
     /**
      * <pre>
@@ -61,22 +62,23 @@ public class WechatAuthorizationInterceptor extends HandlerInterceptorAdapter im
 
         if (openId == null && code != null) {
             String url = String.format(ACCESS_TOKEN, appId, appSecret, code);
+            _.info("[wechat access_token_url] " + url);
             JSON json = JSON.fromJSONString(IOUtils.toString(new URL(url), "UTF-8"));
             _.info("[wechat access_token] " + json);
             if (!json.containsKey("openid")) throw new RuntimeException("获取不到用户OpenId: " + json);
             openId = json.getString("openid");
-            String access_token = json.getString("access_token");
-            wechatUser(openId, access_token);
+            wechatUser(openId);
             request.getSession(true).setAttribute(OPENID_SESSION_KEY, openId);
             return true;
         } else if (openId == null) {
             String backUrl = baseUrl + request.getRequestURI();
             if (request.getQueryString() != null) backUrl += "?" + request.getQueryString();
             String url = String.format(AUTHORIZE, appId, URLEncoder.encode(backUrl, "UTF-8"), code);
-            _.info("[wechat authorize] " + url);
+            _.info("[wechat authorize_url] " + url);
             response.sendRedirect(url);
             return false;
         } else {
+            wechatUser(openId);
             return true;
         }
     }
@@ -103,21 +105,31 @@ public class WechatAuthorizationInterceptor extends HandlerInterceptorAdapter im
      * </pre>
      * 
      * @param json
-     * @throws IOException
-     * @throws MalformedURLException
+     * @throws Exception
      */
-    public void wechatUser(String openId, String access_token) throws Exception {
-        String url = String.format(USER_INFO, access_token, openId);
+    public void wechatUser(String openId) throws Exception {
+        String url = String.format(USER_INFO, wechatToken.getAccessToken(), openId);
+        _.info("[wechat user_info_url] " + url);
         JSON json = JSON.fromJSONString(IOUtils.toString(new URL(url), "UTF-8"));
         _.info("[wechat user_info] " + json);
 
         String nickname = json.getString("nickname");
         String img = json.getString("headimgurl");
+        Integer subscribe = json.getInteger("subscribe");
+        String country = json.getString("country");
+        String province = json.getString("province");
+        String city = json.getString("city");
+        Integer sex = json.getInteger("sex");
         User user = userService.getUserByOpenIdIfExist(openId);
         if (user == null) user = new User(openId);
         if (StringUtils.isNotEmpty(nickname)) user.setNickname(nickname);
         if (StringUtils.isNotEmpty(img)) user.setAvatar(img);
-        user.setCreateTime(new Date());
+        if (StringUtils.isNotEmpty(country)) user.setCountry(country);
+        if (StringUtils.isNotEmpty(province)) user.setProvince(province);
+        if (StringUtils.isNotEmpty(city)) user.setCity(city);
+        if (subscribe != null) user.setSubscribe(subscribe);
+        if (sex != null) user.setSex(sex);
+        user.setUpdateTime(new Date());
         userService.save(user);
     }
 }

@@ -13,14 +13,20 @@ CREATE TABLE `user` (
   `openid`          varchar(128)  NOT NULL    COMMENT '微信openid',
   `create_time` 	datetime      NOT NULL    COMMENT '数据记录创建时间',
   `update_time` 	datetime      NOT NULL    COMMENT '数据记录更新时间',
-  `nickname`        varchar(64)   DEFAULT ''  COMMENT '用户名称',
-  `avatar`          varchar(64)   DEFAULT '/images/noimages.png' COMMENT '用户图像',
-  `state`  			int(2)        DEFAULT 1   COMMENT '状态: 0=未审核,1=正常,2=停止',
-  `income`  	    decimal(10,2) DEFAULT 0   COMMENT '已赚取,累计收入',
-  `disburse`		decimal(10,2) DEFAULT 0   COMMENT '已支付,累计支出',
-  `credit`			int(3)        DEFAULT 100 COMMENT '用户信用额度',
-  `bet_total`		int(3)        DEFAULT 0	  COMMENT '累计打赌数量',
-  `bet_success`		int(3)        DEFAULT 0   COMMENT '累计打赌成功数量',
+  `nickname`        varchar(1024) NOT NULL DEFAULT ''  COMMENT '用户名称',
+  `avatar`          varchar(1024) NOT NULL DEFAULT '/images/noimages.png' COMMENT '用户图像',
+  `subscribe`  		int(2)        NOT NULL DEFAULT 0   COMMENT '关注公众号: 0=未关注,1=已关注',
+  `country`         varchar(512)  NOT NULL DEFAULT ''  COMMENT '国家或地区',
+  `province`        varchar(512)  NOT NULL DEFAULT ''  COMMENT '省份',
+  `city`            varchar(512)  NOT NULL DEFAULT ''  COMMENT '城市',
+  `sex`  		    int(2)        NOT NULL DEFAULT 0   COMMENT '性别:0=未知,1=男性,2=女性',
+  
+  `state`  			int(2)        NOT NULL DEFAULT 1   COMMENT '状态: 0=未审核,1=正常,2=停止',
+  `income`  	    decimal(10,2) NOT NULL DEFAULT 0   COMMENT '已赚取,累计收入',
+  `disburse`		decimal(10,2) NOT NULL DEFAULT 0   COMMENT '已支付,累计支出',
+  `credit`			int(3)        NOT NULL DEFAULT 100 COMMENT '用户信用额度',
+  `bet_total`		int(3)        NOT NULL DEFAULT 0	  COMMENT '累计打赌数量',
+  `bet_success`		int(3)        NOT NULL DEFAULT 0   COMMENT '累计打赌成功数量',
   
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT='用户表';
@@ -77,6 +83,7 @@ CREATE TABLE `bet` (
   `pv`         		int(11)       DEFAULT 0   COMMENT '浏览数',
   
   `user_id`  		bigint(20)    NOT NULL    COMMENT '打赌者id',
+  `invitee_id`  	bigint(20)    NOT NULL    COMMENT '邀请者id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20000 DEFAULT CHARSET=utf8 COMMENT='打赌表';
 

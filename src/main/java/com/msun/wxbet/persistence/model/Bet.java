@@ -21,21 +21,22 @@ import com.msun.wxbet.support.utils.MSUNUtils;
 @Table(name = "bet")
 public class Bet extends IdEntity {
 
-    private Date   createTime; // 创建时间
-    private Date   updateTime; // 更新时间
-    private String content;    // 打赌内容
-    private Date   finishTime; // 预计完成时间
-    private Date   realTime;   // 实际完成时间
-    private Float  amount;     // 打赌支付金额,单位元
-    private int    type;       // 类型:0=自发打赌,1=接受邀约打赌
-    private int    state;      // 状态: -1=创建失败,0=创建成功,1=目标完成,2=目标失败,3=终止
-    private int    participate; // 状态: 0=容许参与,1=停止参与
-    private int    visible;    // 状态: 0=公开,1=私密
-    private Float  capital;    // 打赌活动总资金池,单位元
-    private long   pv;         // 浏览数
+    private Date   createTime;     // 创建时间
+    private Date   updateTime;     // 更新时间
+    private String content;        // 打赌内容
+    private Date   finishTime;     // 预计完成时间
+    private Date   realTime;       // 实际完成时间
+    private Float  amount  = 0.00f; // 打赌支付金额,单位元
+    private int    type;           // 类型:0=自发打赌,1=接受邀约打赌
+    private int    state;          // 状态:-1=创建失败,0=创建成功,1=目标完成,2=目标失败,3=终止
+    private int    participate;    // 状态:0=容许参与,1=停止参与
+    private int    visible;        // 状态:0=公开,1=私密
+    private Float  capital = 0.00f; // 打赌活动总资金池,单位元
+    private long   pv;             // 浏览数
 
-    private Long   userId;     // 组织者id
-    private User   user;       // 组织者
+    private Long   userId;         // 组织者id
+    private User   user;           // 组织者
+    private Long   inviteeId;      // 邀请者id
 
     public Bet() {
 
@@ -46,6 +47,14 @@ public class Bet extends IdEntity {
     @NotFound(action = NotFoundAction.IGNORE)
     public User getUser() {
         return user;
+    }
+
+    public Long getInviteeId() {
+        return inviteeId;
+    }
+
+    public void setInviteeId(Long inviteeId) {
+        this.inviteeId = inviteeId;
     }
 
     public void setUser(User user) {

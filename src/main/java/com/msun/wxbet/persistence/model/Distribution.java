@@ -19,17 +19,17 @@ import org.hibernate.annotations.NotFoundAction;
 @Table(name = "distribution")
 public class Distribution extends IdEntity {
 
-    private Date   createTime; // 创建时间
-    private int    organizer; // 状态: 0=参与者,1=组织者
-    private int    state;     // 状态: -1=创建失败,0=创建成功,1=目标完成,2=目标失败,3=终止
-    private String name;      // 用户名称,匿名显示匿名
-    private Float  capital;   // 打赌活动总资金池,单位元
-    private Float  income;    // 打赌收益金额,单位元
+    private Date   createTime;     // 创建时间
+    private int    organizer;      // 状态: 0=参与者,1=组织者
+    private int    state;          // 状态: -1=创建失败,0=创建成功,1=目标完成,2=目标失败,3=终止
+    private String name;           // 用户名称,匿名显示匿名
+    private Float  capital = 0.00f; // 打赌活动总资金池,单位元
+    private Float  income  = 0.00f; // 打赌收益金额,单位元
 
-    private Long   userId;    // 用户id
-    private User   user;      // 组织者
-    private Long   betId;     // 打赌id
-    private Bet    bet;       // 打赌
+    private Long   userId;         // 用户id
+    private User   user;           // 组织者
+    private Long   betId;          // 打赌id
+    private Bet    bet;            // 打赌
 
     public Distribution() {
 

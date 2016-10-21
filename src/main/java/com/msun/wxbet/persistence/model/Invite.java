@@ -19,16 +19,16 @@ import org.hibernate.annotations.NotFoundAction;
 @Table(name = "invite")
 public class Invite extends IdEntity {
 
-    private Date   createTime; // 创建时间
-    private Date   updateTime; // 更新时间
-    private String content;    // 打赌内容
-    private Date   finishTime; // 预计完成时间
-    private Float  amount;     // 打赌支付金额,单位元
-    private Float  otherAmount; // 对方打赌支付金额,单位元
-    private int    count;      // 被邀请者数量,默认1个,只能1个人接受
+    private Date   createTime;         // 创建时间
+    private Date   updateTime;         // 更新时间
+    private String content;            // 打赌内容
+    private Date   finishTime;         // 预计完成时间
+    private Float  amount      = 0.00f; // 打赌支付金额,单位元
+    private Float  otherAmount = 0.00f; // 对方打赌支付金额,单位元
+    private int    count;              // 被邀请者数量,默认1个,只能1个人接受
 
-    private Long   userId;     // 邀请打赌者id
-    private User   user;       // 邀请打赌者
+    private Long   userId;             // 邀请打赌者id
+    private User   user;               // 邀请打赌者
 
     public Invite() {
 

@@ -20,11 +20,17 @@ public class User extends IdEntity {
     private String  openid;
     private Date    createTime = new Date();
     private Date    updateTime = new Date();
-    private String  nickname;
-    private String  avatar;
-    private Integer state;
-    private Float   income;                 // 已赚取,累计收入
-    private Float   disburse;               // 已支付,累计支出
+    private String  nickname;               // 用户名称
+    private String  avatar;                 // 用户图像,默认/images/noimages.png
+    private Integer subscribe;              // 关注公众号: 0=未关注,1=已关注
+    private String  country;                // 国家或地区
+    private String  province;               // 所在省份
+    private String  city;                   // 所在城市
+    private Integer sex;                    // 性别:0=未知,1=男性,2=女性
+
+    private Integer state;                  // 状态: 0=未审核,1=正常,2=停止
+    private float   income     = 0.00f;     // 已赚取,累计收入
+    private float   disburse   = 0.00f;     // 已支付,累计支出
     private int     credit;                 // 用户信用额度
     private int     betTotal;               // 累计打赌数量
     private int     betSuccess;             // 累计打赌成功数量
@@ -43,6 +49,46 @@ public class User extends IdEntity {
 
     public void setIncome(Float income) {
         this.income = income;
+    }
+
+    public Integer getSubscribe() {
+        return subscribe;
+    }
+
+    public void setSubscribe(Integer subscribe) {
+        this.subscribe = subscribe;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
     }
 
     public Float getDisburse() {

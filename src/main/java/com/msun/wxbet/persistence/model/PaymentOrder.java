@@ -17,9 +17,9 @@ import javax.persistence.Table;
 @Table(name = "payment_order")
 public class PaymentOrder extends IdEntity {
 
-    private Date  createTime; // 创建时间
-    private Date  updateTime; // 更新时间
-    private Float money;
+    private Date  createTime;   // 创建时间
+    private Date  updateTime;   // 更新时间
+    private Float money = 0.00f;
     private Long  userId;
     private int   status;
 
