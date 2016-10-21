@@ -31,6 +31,19 @@ INSERT INTO `user` (`id`,`openid`, `create_time`, `update_time`, `nickname`,`ava
 VALUES(10002,'oGRmQs1dsisW6G1TVtm9dfged4io', '2016-09-11 18:11:46', '2016-09-11 18:11:46','test','/images/noimages.png',1,0);
 
 
+DROP TABLE IF EXISTS `payment_order`;
+CREATE TABLE `payment_order` (
+  `id`          	bigint(20)    NOT NULL    AUTO_INCREMENT,
+  `create_time` 	datetime      NOT NULL    COMMENT '数据记录创建时间',
+  `update_time` 	datetime                  COMMENT '数据记录更新时间',
+  `money`           decimal(10,2) DEFAULT 0   COMMENT '支付金额,单位元',
+  `status`  		int(2)        DEFAULT 1   COMMENT '支付状态:0=已支付,1=未支付',
+  
+  `user_id`  		bigint(20)    NOT NULL    COMMENT '邀请打赌者id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20000 DEFAULT CHARSET=utf8 COMMENT='付款订单表';
+
+
 DROP TABLE IF EXISTS `invite`;
 CREATE TABLE `invite` (
   `id`          	bigint(20)    NOT NULL    AUTO_INCREMENT,

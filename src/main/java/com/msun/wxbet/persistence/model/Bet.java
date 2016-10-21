@@ -27,6 +27,7 @@ public class Bet extends IdEntity {
     private Date   finishTime; // 预计完成时间
     private Date   realTime;   // 实际完成时间
     private Float  amount;     // 打赌支付金额,单位元
+    private int    type;       // 类型:0=自发打赌,1=接受邀约打赌
     private int    state;      // 状态: -1=创建失败,0=创建成功,1=目标完成,2=目标失败,3=终止
     private int    participate; // 状态: 0=容许参与,1=停止参与
     private int    visible;    // 状态: 0=公开,1=私密
@@ -53,6 +54,14 @@ public class Bet extends IdEntity {
 
     public Bet(Long userId) {
         this.userId = userId;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public Date getCreateTime() {
