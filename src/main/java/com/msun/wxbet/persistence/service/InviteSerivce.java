@@ -32,7 +32,7 @@ public class InviteSerivce {
         return Lists.newArrayList(inviteDao.findAll());
     }
 
-    public Page<Invite> listBet(int page, int size) {
+    public Page<Invite> listInvite(int page, int size) {
         return inviteDao.findAll(MSUNUtils.pageRequest(page, size, null));
     }
 
