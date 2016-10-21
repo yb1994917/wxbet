@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.lamfire.json.JSON;
 import com.msun.wxbet.cons.Definition;
 import com.msun.wxbet.persistence.model.User;
-import com.msun.wxbet.persistence.service.BetService;
-import com.msun.wxbet.persistence.service.InviteSerivce;
-import com.msun.wxbet.persistence.service.ParticipateService;
-import com.msun.wxbet.persistence.service.UserService;
+import com.msun.wxbet.persistence.service.*;
 import com.msun.wxbet.support.FileHelper;
 import com.msun.wxbet.support.JsonResult;
 import com.msun.wxbet.support.wechat.WechatPayment;
@@ -35,6 +32,8 @@ public class BaseController implements Definition {
     @Autowired
     protected HttpSession        session;
 
+    @Autowired
+    protected OrderService       orderService;
     @Autowired
     protected UserService        userService;
     @Autowired
